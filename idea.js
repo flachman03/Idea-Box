@@ -4,6 +4,6 @@ class Idea {
 		this.title =  title;
 		this.body = body;
 		this.star = false;
-		// this.quality = "swill"; 
+		this.quality = []; 
 	}
 }
