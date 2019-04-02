@@ -34,7 +34,7 @@ body {
 /*----------Main--------------*/
 main {
 	display: grid;
-	grid-template-rows: 40% 60%;
+	grid-template-rows: 35% 65%;
 	height: 100vh;
 }
 
@@ -61,6 +61,10 @@ h1,h2,h3, label {
 .bottom-section {
 	background-color: #eaeaf4;
 	border: 1px solid pink;
+	display: flex;
+	flex-wrap: wrap;
+	overflow: hidden;
+	justify-content: space-around;
 }
 
 .idea-form {
@@ -146,4 +150,50 @@ li:hover {
 	padding-left: 10px;
 }
 
+/* ----------- idea cards------------ */
 
+.idea-card {
+	border: 1px solid #6e646b;
+	width: 200px;
+	height: 245px;
+	margin: 10px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+
+.idea-card-header,
+.idea-card-footer {
+	height: 30px;
+	background-color: #1f1f3d;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.idea-card-footer {
+	background-color: #5356a4;
+	color: #fff;
+}
+
+img {
+	width: 30px;
+	cursor: pointer;
+}
+
+.idea-card-content {
+	height: 120px;
+}
+
+.idea-card-body {
+	padding: 10px;
+	height: 100%;
+	background-color: #fff;
+}
+
+.idea-card-title {
+	height: 30px;
+	margin-bottom: 5px;
+	margin-top: 3px;
+}
