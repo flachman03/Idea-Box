@@ -3,37 +3,39 @@
 <head>
 	<title>Idea Box</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,700" rel="stylesheet">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-	<section>
-		<h1>IdeaBox Redux</h1>
-		<h2>Filter Starred Ideas</h2>
-		<input type="button" name="show-starred-ideas-btn" class="btn show-starred-ideas-btn">
-		<h2>Filter by Quality</h2>
+	<section class="sidebar">
+
+		<h1 class="sidebar-title">IdeaBox Redux</h1>
+		<h2 class="sidebar-filter-title filter-padding">Filter Starred Ideas</h2>
+		<input type="button" name="show-starred-ideas-btn" class="sidebar-starred-ideas-btn global-input sidebar-btn filter-padding" value="Show Starred Ideas">
+		<h2 class="sidebar-filter-title filter-padding">Filter by Quality</h2>
 		<ul>
 			<li>Swill</li>
 			<li>Plausable</li>
 			<li>Genius</li>
 		</ul>
-		<label>New Quality
-		<input type="text" name="new-quality">
-		</label>
-		<input type="button" name="add-new-quality">
+		<div class="sidebar-quality-container">
+			<label for="new-quality" class="sidebar-filter-title quality">New Quality</label>
+			<input type="text" name="new-quality" id="new-quality"class="global-input">
+			<input type="button" name="add-new-quality" class="global-input sidebar-btn quality-btn" value="Add New Quality">
+	</div>
 	</section>
 	<main>
 		<section class="top-section">
-			<form>
-				<label>Title
-				<input type="text" name="title-input" class="title-input">
-				</label>
-				<label>body
-				<input type="text" name="body-input" class="body-input">
-			  </label>
-				<input type="button" name="save-btn" class="save-btn">	
+			<form class="idea-form">
+				<label for="title-input">Title</label>
+				<input type="text" name="title-input" class="title-input global-input" id="title-input">
+				<label for="body-input">body</label>
+				<textarea class="body-input global-input " id="body-input"></textarea>
+				<input type="button" name="save-btn" value="Save"class="save-btn global-input">	
 			</form>
-			<form>
-				<input type="button" name="search-btn" class="search-btn">
-				<input type="text" name="search-input" class="search-input">
+			<form class="search-form">
+				<input type="button" name="search-btn" class="search-btn global-input">
+				<input type="text" name="search-input" class="search-input global-input">
 			</form>
 		</section>
 		<section class="bottom-section">
