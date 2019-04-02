@@ -14,6 +14,7 @@ newQualityBtn.addEventListener('click', function(){
 
 saveBtn.addEventListener('click', function() {
 	saveNewObject();
+	clearInputs();
 })
 
 
@@ -24,4 +25,15 @@ function saveNewObject() {
 	var stringified = JSON.stringify(newIdea);
 	localStorage.setItem(newIdea.id, stringified);
 	console.log(localStorage);
+}
+
+function getObject(idea) {
+	var storedIdea = localStorage.getItem(idea.id);
+	var parsed = JSON.parse(storedIdea);
+	return parsed = new Idea(parsed.id, parsed.title, parsed.body);
+}
+
+function clearInputs() {
+	titleInput.value = '';
+	bodyInput.value = '';
 }
