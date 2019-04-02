@@ -8,18 +8,21 @@
 </head>
 <body>
 	<section class="sidebar">
+
 		<h1 class="sidebar-title">IdeaBox Redux</h1>
-		<h2>Filter Starred Ideas</h2>
-		<input type="button" name="show-starred-ideas-btn" class="show-starred-ideas-btn global-input sidebar-btn" value="Show Starred Ideas">
-		<h2>Filter by Quality</h2>
+		<h2 class="sidebar-filter-title filter-padding">Filter Starred Ideas</h2>
+		<input type="button" name="show-starred-ideas-btn" class="sidebar-starred-ideas-btn global-input sidebar-btn filter-padding" value="Show Starred Ideas">
+		<h2 class="sidebar-filter-title filter-padding">Filter by Quality</h2>
 		<ul>
 			<li>Swill</li>
 			<li>Plausable</li>
 			<li>Genius</li>
 		</ul>
-		<label for="new-quality">New Quality</label>
-		<input type="text" name="new-quality" id="new-quality"class="global-input">
-		<input type="button" name="add-new-quality" class="global-input sidebar-btn" value="Add New Quality">
+		<div class="sidebar-quality-container">
+			<label for="new-quality" class="sidebar-filter-title quality">New Quality</label>
+			<input type="text" name="new-quality" id="new-quality"class="global-input">
+			<input type="button" name="add-new-quality" class="global-input sidebar-btn quality-btn" value="Add New Quality">
+	</div>
 	</section>
 	<main>
 		<section class="top-section">

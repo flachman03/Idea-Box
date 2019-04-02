@@ -8,7 +8,7 @@
 
 .global-input {
 	height: 35px;
-	border-radius: 3px;
+	border-radius: 1px;
 	outline: none;
 	font-size: 16px;
 	padding-left: 3px;
@@ -47,7 +47,7 @@ form {
 	min-width: 320px;
 }
 
-h1,h2,h3 {
+h1,h2,h3, label {
 	font-weight: 700;
 }
 
@@ -99,15 +99,51 @@ h1,h2,h3 {
 	color: #ffffff;
 	display: flex;
 	flex-direction: column;
-	padding: 12px;
 }
 
 .sidebar-title {
 	font-size: 16px;
-	border-bottom: 1px solid #353567;
-	margin-bottom: 10px;
-	padding: 5px 0px 15px 0px;
+	padding: 15px 0px 15px 10px;
 }
 
+.sidebar-filter-title {
+	font-size: 12px;
+	color: #bfbfdd;
+	border-top: 1px solid #353567;
+	padding: 10px 0px 10px 0px;
+}
+
+.sidebar-starred-ideas-btn {
+	margin: 15px auto;
+	width: 93%;
+}
+
+li {
+	padding: 5px 0px 5px 5px;
+	border-left: 5px solid transparent;
+}
+
+li:hover {
+	background-color: #d14119;
+	border-left: 5px solid #f58e72;
+}
+.quality {
+	border: none;
+	margin-bottom: 3px;
+}
+.sidebar-quality-container {
+	margin-top: 3px;
+	display: flex;
+	flex-direction: column;
+	border-bottom: 1px solid #353567;
+	padding: 0px 10px;
+}
+.quality-btn {
+	margin: 12px 0px;
+}
+
+.filter-padding {
+	padding-left: 10px;
+}
 
 
