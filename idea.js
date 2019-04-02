@@ -1,9 +1,9 @@
 class Idea {
-	constructor(title, body) {
-		this.id = Date.now();
+	constructor(id, title, body) {
+		this.id = id;
 		this.title =  title;
 		this.body = body;
 		this.star = false;
-		this.quality = ; 
+		// this.quality = "swill"; 
 	}
 }
