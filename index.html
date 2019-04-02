@@ -8,10 +8,9 @@
 </head>
 <body>
 	<section class="sidebar">
-
 		<h1 class="sidebar-title">IdeaBox Redux</h1>
 		<h2 class="sidebar-filter-title filter-padding">Filter Starred Ideas</h2>
-		<input type="button" name="show-starred-ideas-btn" class="sidebar-starred-ideas-btn global-input sidebar-btn filter-padding" value="Show Starred Ideas">
+		<input type="button" name="show-starred-ideas-btn" class="sidebar-starred-ideas-btn global-input sidebar-btn filter-padding" value="Show Starred Ideas" id="sidebar-starred-ideas-btn">
 		<h2 class="sidebar-filter-title filter-padding">Filter by Quality</h2>
 		<ul>
 			<li>Swill</li>
@@ -20,8 +19,8 @@
 		</ul>
 		<div class="sidebar-quality-container">
 			<label for="new-quality" class="sidebar-filter-title quality">New Quality</label>
-			<input type="text" name="new-quality" id="new-quality"class="global-input">
-			<input type="button" name="add-new-quality" class="global-input sidebar-btn quality-btn" value="Add New Quality">
+			<input type="text" name="new-quality" id="new-quality" class="global-input">
+			<input type="button" name="add-new-quality" id="new-quality-btn"class="global-input sidebar-btn quality-btn" value="Add New Quality">
 	</div>
 	</section>
 	<main>
@@ -31,7 +30,7 @@
 				<input type="text" name="title-input" class="title-input global-input" id="title-input">
 				<label for="body-input">body</label>
 				<textarea class="body-input global-input " id="body-input"></textarea>
-				<input type="button" name="save-btn" value="Save"class="save-btn global-input">	
+				<input type="button" name="save-btn" value="Save"class="save-btn global-input" id="save-btn">	
 			</form>
 			<form class="search-form">
 				<input type="button" name="search-btn" class="search-btn global-input">
