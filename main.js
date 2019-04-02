@@ -6,6 +6,7 @@ var newQualityBtn = document.querySelector('#new-quality-btn');
 var titleInput = document.querySelector('#title-input');
 var bodyInput = document.querySelector('#body-input');
 var saveBtn = document.querySelector('#save-btn');
+var bottomSection = document.querySelector('.bottom-section');
 
 /*----------------Event Listeners---------------*/
 
@@ -14,6 +15,7 @@ newQualityBtn.addEventListener('click', function(){
 
 saveBtn.addEventListener('click', function() {
 	saveNewObject();
+	addCard();
 })
 
 
@@ -24,4 +26,25 @@ function saveNewObject() {
 	var stringified = JSON.stringify(newIdea);
 	localStorage.setItem(newIdea.id, stringified);
 	console.log(localStorage);
+}
+
+function addCard() {
+	bottomSection.innerHTML += 
+	
+	`<div class="idea-card">
+				<article class="idea-card-header">
+					<img src="images/star.svg">
+					<img src="images/delete.svg">
+				</article>
+				<article class="idea-card-body">
+					<h3 class="idea-card-title">${titleInput.value}</h3>
+					<p class="idea-card-content">${bodyInput.value}</p>
+				</article>
+				<article class=idea-card-footer>
+					<img src="images/upvote.svg">
+					<p>Quality: Swill</p>
+					<img src="images/downvote.svg">
+				</article>
+			</div>
+	`
 }
