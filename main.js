@@ -18,6 +18,7 @@ saveBtn.addEventListener('click', function() {
 	saveNewObject();
 	clearInputs();
 	addCard();
+	console.log(localStorage.getItem(item.id))
 })
 
 
@@ -26,10 +27,10 @@ saveBtn.addEventListener('click', function() {
 function saveNewObject() {
 	var newIdea = new Idea(Date.now(), titleInput.value, bodyInput.value);
 	ideaArray.push(newIdea);
-	console.log(ideaArray);
+	// console.log(ideaArray);
 	var stringified = JSON.stringify(newIdea);
 	localStorage.setItem(newIdea.id, stringified);
-	console.log(localStorage);
+	// console.log(localStorage);
 }
 
 function getObject(ideaArray) {
