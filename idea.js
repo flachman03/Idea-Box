@@ -6,4 +6,13 @@ class Idea {
 		this.star = false;
 		this.quality = []; 
 	}
+
+	saveToStorage(ideaArray) {
+	var stringified = JSON.stringify(ideaArray);
+	localStorage.setItem('string', stringified);
+	}
+
+	deleteFromStorge() {
+		localStorage.removeItem(this.id)
+	}
 }

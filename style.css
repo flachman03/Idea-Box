@@ -51,14 +51,14 @@ h1,h2,h3, label {
 	font-weight: 700;
 }
 
-.top-section {
+.main__top-section {
 	background-color: #a9aad2;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 }
 
-.bottom-section {
+.main__bottom-section {
 	background-color: #eaeaf4;
 	border: 1px solid pink;
 	display: flex;
@@ -67,31 +67,31 @@ h1,h2,h3, label {
 	justify-content: flex-start;
 }
 
-.idea-form {
+.top-section__idea-form {
 	height: 80%;
 }
 
-.search-form {
-	flex-direction: row;
-	align-items: center;
-	height: 20%;
-}
-.search-form {
-	flex: 1;
-}
-
-.search-input {
-	flex: 9;
-}
-
-.body-input {
+.idea-form__body-input {
 	height: 80px;
 	resize: none;
 }
 
-.save-btn {
+.idea-form__save-btn {
 	background-color: #1f1f3d;
 	color: #ffffff;
+}
+
+.top-section__search-form {
+	flex-direction: row;
+	align-items: center;
+	height: 20%;
+}
+.search-form__search-btn {
+	flex: 1;
+}
+
+.search-form__search-input {
+	flex: 9;
 }
 
 /*----------Sidebar----------*/
@@ -105,12 +105,12 @@ h1,h2,h3, label {
 	flex-direction: column;
 }
 
-.sidebar-title {
+.sidebar__side-title {
 	font-size: 16px;
 	padding: 15px 0px 15px 10px;
 }
 
-.sidebar-filter-title {
+.side-title__filter-title {
 	font-size: 12px;
 	color: #bfbfdd;
 	border-top: 1px solid #353567;
@@ -163,8 +163,8 @@ li:hover {
 }
 
 
-.idea-card-header,
-.idea-card-footer {
+.idea-card__card-header,
+.idea-card__card-footer {
 	height: 30px;
 	background-color: #1f1f3d;
 	display: flex;
@@ -172,7 +172,7 @@ li:hover {
 	align-items: center;
 }
 
-.idea-card-footer {
+.idea-card__card-footer {
 	background-color: #5356a4;
 	color: #fff;
 }
@@ -182,18 +182,26 @@ img {
 	cursor: pointer;
 }
 
-.idea-card-content {
+.card-body__content {
 	height: 120px;
 }
 
-.idea-card-body {
+.idea-card__card-body {
 	padding: 10px;
 	height: 100%;
 	background-color: #fff;
 }
 
-.idea-card-title {
+.idea-card__card-title {
 	height: 30px;
 	margin-bottom: 5px;
 	margin-top: 3px;
+}
+
+button {
+	height: 30px;
+	width:30px;
+	background-color: #1f1f3d;
+	border: none;
+	outline: none;
 }
