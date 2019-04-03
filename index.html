@@ -8,8 +8,8 @@
 </head>
 <body>
 	<section class="sidebar">
-		<h1 class="sidebar-title">IdeaBox Redux</h1>
-		<h2 class="sidebar-filter-title filter-padding">Filter Starred Ideas</h2>
+		<h1 class="sidebar__side-title">IdeaBox Redux</h1>
+		<h2 class="side-title__filter-title filter-padding">Filter Starred Ideas</h2>
 		<input type="button" name="show-starred-ideas-btn" class="sidebar-starred-ideas-btn global-input sidebar-btn filter-padding" value="Show Starred Ideas" id="sidebar-starred-ideas-btn">
 		<h2 class="sidebar-filter-title filter-padding">Filter by Quality</h2>
 		<ul>
@@ -24,35 +24,20 @@
 	</div>
 	</section>
 	<main>
-		<section class="top-section">
-			<form class="idea-form">
+		<section class="main__top-section">
+			<form class="top-section__idea-form">
 				<label for="title-input">Title</label>
-				<input type="text" name="title-input" class="title-input global-input" id="title-input">
+				<input type="text" name="title-input" class="idea-form__title-input global-input" id="title-input">
 				<label for="body-input">body</label>
-				<textarea class="body-input global-input " id="body-input"></textarea>
-				<input type="button" name="save-btn" value="Save"class="save-btn global-input" id="save-btn">	
+				<textarea class="idea-form__body-input global-input " id="body-input"></textarea>
+				<input type="button" name="save-btn" value="Save"class="idea-form__save-btn global-input" id="save-btn">	
 			</form>
-			<form class="search-form">
-				<input type="button" name="search-btn" class="search-btn global-input">
-				<input type="text" name="search-input" class="search-input global-input">
+			<form class="top-section__search-form">
+				<input type="button" name="search-btn" class="search-form__search-btn global-input">
+				<input type="text" name="search-input" class="search-form__search-input global-input">
 			</form>
 		</section>
-		<section class="bottom-section">
-			<!-- <div class="idea-card">
-				<article class="idea-card-header">
-					<img src="images/star.svg">
-					<img src="images/delete.svg">
-				</article>
-				<article class="idea-card-body">
-					<h3 class="idea-card-title">Idea title</h3>
-					<p class="idea-card-content">Idea body, is here and is everything is good bla bla bla.</p>
-				</article>
-				<article class=idea-card-footer>
-					<img src="images/upvote.svg">
-					<p>Quality: Swill</p>
-					<img src="images/downvote.svg">
-				</article>
-			</div> -->
+		<section class="main__bottom-section">
 		</section>
 	</main>
 <script type="text/javascript" src="idea.js"></script>
