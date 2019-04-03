@@ -20,11 +20,11 @@ saveBtn.addEventListener('click', function() {
 	clearInputs();
 })
 
-cards.addEventListener('click', function(e) {
-	if (e.target == document.querySelector('.card-header__delete-btn')) {
-		console.log('button click');
-	}
-});
+// cards.addEventListener('click', function(e) {
+// 	if (e.target == document.querySelector('.card-header__delete-btn')) {
+// 		console.log('button click');
+// 	}
+// });
 
 if (ideaArray != []) {
 	pageRefresh(ideaArray);

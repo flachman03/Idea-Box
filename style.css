@@ -135,14 +135,14 @@ li:hover {
 	border: none;
 	margin-bottom: 3px;
 }
-.sidebar-quality-container {
+.sidebar__quality-container {
 	margin-top: 3px;
 	display: flex;
 	flex-direction: column;
 	border-bottom: 1px solid #353567;
 	padding: 0px 10px;
 }
-.quality-btn {
+.quality-container__quality-btn {
 	margin: 12px 0px;
 }
 
@@ -204,4 +204,9 @@ button {
 	background-color: #1f1f3d;
 	border: none;
 	outline: none;
+}
+
+.card-footer__up-btn, 
+.card-footer__down-btn {
+	background-color: #5356a4;
 }
