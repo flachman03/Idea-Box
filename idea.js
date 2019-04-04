@@ -1,18 +1,36 @@
 class Idea {
-	constructor(id, title, body) {
+	constructor(id, title, body,starImg, qualityCount) {
 		this.id = id;
 		this.title =  title;
 		this.body = body;
-		this.star = false;
-		this.quality = []; 
+		this.star = false; 
+		this.starImg = starImg || "images/star.svg"
+		this.qualityCount = qualityCount || 0;
 	}
 
 	saveToStorage(ideaArray) {
 	var stringified = JSON.stringify(ideaArray);
-	localStorage.setItem('string', stringified);
+	localStorage.setItem('array', stringified);
 	}
 
 	deleteFromStorge() {
 		localStorage.removeItem(this.id)
+	}
+
+	starToggle() {
+		this.star = !this.star;
+		if (this.star == true) {
+			this.starImg = "images/star-active.svg"
+		} else {
+			this.starImg = "images/star.svg"
+		}
+	}
+
+	updateQuality(quality) {
+		if (quality == 'upvote') {
+			this.qualityCount++
+		} else {
+			this.qualityCount--
+		}
 	}
 }
