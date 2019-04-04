@@ -20,11 +20,11 @@ saveBtn.addEventListener('click', function() {
 	clearInputs();
 })
 
-cards.addEventListener('click', function(e) {
-	if (e.target == document.querySelector('.card-header__delete-btn')) {
-		console.log('button click');
-	}
-});
+// cards.addEventListener('click', function(e) {
+// 	if (e.target == document.querySelector('.card-header__delete-btn')) {
+// 		console.log('button click');
+// 	}
+// });
 
 if (ideaArray != []) {
 	pageRefresh(ideaArray);
@@ -55,7 +55,9 @@ function pageRefresh(ideaArray) {
 }
 
 
+
 function addCard(idea) {
+	
 	bottomSection.innerHTML += 
 	
 	`<div class="idea-card" data-id="${idea.id}">
@@ -64,7 +66,7 @@ function addCard(idea) {
 					<button type="submit" class="card-header__delete-btn"><img src="images/delete.svg"></button>
 				</article>
 				<article class="idea-card__card-body">
-					<h3 class="card-body__title">${idea.title}</h3>
+					<h3  class="card-body__title">${idea.title}</h3>
 					<p class="card-body__content">${idea.body}</p>
 				</article>
 				<article class=idea-card__card-footer>
@@ -74,7 +76,18 @@ function addCard(idea) {
 				</article>
 			</div>
 	`
+
+	var cardDeleteBtn = document.getElementsByClassName('card-header__delete-btn');
+
+	for (var i = 0; i < cardDeleteBtn.length; i++) {
+		cardDeleteBtn[i].addEventListener('click', function() {
+			var parentEl = this.parentElement.parentElement;
+			parentEl.style.display = 'none';
+
+			var elId = parentEl.dataset.id;
+
+			
+		});
+	}
+	
 }
-
-
-
