@@ -19,6 +19,7 @@ saveBtn.addEventListener('click', function(e) {
 	clearInputs();
 })
 
+
 bottomSection.addEventListener('click', function(e) {
 			var idea = e.target.parentNode.parentNode.dataset.id;
 		if (e.target.className.includes('card-header__star-btn')){
@@ -62,8 +63,11 @@ function pageRefresh(ideaArray) {
 }
 
 
+
+
 function addCard(idea) {
-	bottomSection.innerHTML += 
+	
+	bottomSection.innerHTML = 
 
 	`<div class="idea-card" data-id="${idea.id}">
 				<article class="idea-card__card-header">
@@ -71,7 +75,7 @@ function addCard(idea) {
 					<img src="images/delete.svg" class="card-header__delete-btn">
 				</article>
 				<article class="idea-card__card-body">
-					<h3 class="card-body__title">${idea.title}</h3>
+					<h3  class="card-body__title">${idea.title}</h3>
 					<p class="card-body__content">${idea.body}</p>
 				</article>
 				<article class=idea-card__card-footer>
@@ -81,6 +85,21 @@ function addCard(idea) {
 				</article>
 			</div>
 	`
+	+ bottomSection.innerHTML ;
+
+	var cardDeleteBtn = document.getElementsByClassName('card-header__delete-btn');
+
+	for (var i = 0; i < cardDeleteBtn.length; i++) {
+		cardDeleteBtn[i].addEventListener('click', function() {
+			var parentEl = this.parentElement.parentElement;
+			parentEl.style.display = 'none';
+
+			 var elId = JSON.parse(parentEl.dataset.id);
+						console.log(elId)
+						findItem(elId)
+		});
+		
+	}
 }
 
 
@@ -135,4 +154,18 @@ function changeStar(idea) {
 
 
 
+
+function findItem(elId) {
+
+	var itemsInLocalStorage = JSON.parse(localStorage.getItem('array'));
+
+	var elIndex = itemsInLocalStorage.findIndex(function(element) {
+		return element.id === elId;
+	  });
+	  
+	  console.log((itemsInLocalStorage))
+	  itemsInLocalStorage.splice(elIndex,1)
+	  localStorage.clear();
+	  localStorage.setItem('array', JSON.stringify(itemsInLocalStorage));
+}
 
