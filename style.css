@@ -79,6 +79,7 @@ h1,h2,h3, label {
 .idea-form__save-btn {
 	background-color: #1f1f3d;
 	color: #ffffff;
+	margin-top: 5px;
 }
 
 .top-section__search-form {
@@ -206,7 +207,3 @@ button {
 	outline: none;
 }
 
-.card-footer__up-btn, 
-.card-footer__down-btn {
-	background-color: #5356a4;
-}
