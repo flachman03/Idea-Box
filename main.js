@@ -6,27 +6,35 @@ var newQualityBtn = document.querySelector('#new-quality-btn');
 var titleInput = document.querySelector('#title-input');
 var bodyInput = document.querySelector('#body-input');
 var saveBtn = document.querySelector('#save-btn');
-var ideaArray = JSON.parse(localStorage.getItem('array')) || [];
 var bottomSection = document.querySelector('.main__bottom-section');
 var cards = document.querySelector('idea-card');
+var starBtn = document.querySelector('.card-header__star-btn');
+var ideaArray = JSON.parse(localStorage.getItem('array'))|| [];
+var qualityArray = ['Swill', 'Plausable', 'Genius']
 
 /*----------------Event Listeners---------------*/
 
-newQualityBtn.addEventListener('click', function(){
-})
-
-saveBtn.addEventListener('click', function() {
-	saveNewObject();
+saveBtn.addEventListener('click', function(e) {
+	saveNewObject(e);
 	clearInputs();
 })
 
-// cards.addEventListener('click', function(e) {
-// 	if (e.target == document.querySelector('.card-header__delete-btn')) {
-// 		console.log('button click');
-// 	}
-// });
 
-if (ideaArray != []) {
+bottomSection.addEventListener('click', function(e) {
+			var idea = e.target.parentNode.parentNode.dataset.id;
+		if (e.target.className.includes('card-header__star-btn')){
+			changeStar(idea)
+		 };
+		if (e.target.className.includes('card-footer__up-btn')) {
+			upvote(idea)
+		};
+		if (e.target.className.includes('card-footer__down-btn')) {
+			downvote(idea)
+		}
+})
+
+if (ideaArray.length != 0) {
+	onLoad();
 	pageRefresh(ideaArray);
 }
 
@@ -49,7 +57,7 @@ function clearInputs() {
 }
 
 function pageRefresh(ideaArray) {
-	ideaArray.forEach((item) => {
+	ideaArray.forEach(function(item) {
 		addCard(item);
 	});
 }
@@ -60,20 +68,20 @@ function pageRefresh(ideaArray) {
 function addCard(idea) {
 	
 	bottomSection.innerHTML = 
-	
+
 	`<div class="idea-card" data-id="${idea.id}">
 				<article class="idea-card__card-header">
-					<button type="submit" class="card-header__star-btn"><img src="images/star.svg"></button>
-					<button type="submit" class="card-header__delete-btn"><img src="images/delete.svg"></button>
+					<img src=${idea.starImg} class="card-header__star-btn">
+					<img src="images/delete.svg" class="card-header__delete-btn">
 				</article>
 				<article class="idea-card__card-body">
 					<h3  class="card-body__title">${idea.title}</h3>
 					<p class="card-body__content">${idea.body}</p>
 				</article>
 				<article class=idea-card__card-footer>
-					<button type="submit" class="card-footer__up-btn"><img src="images/upvote.svg"></button>
-					<p>Quality: Swill</p>
-					<button type="submit" class="card-footer__down-btn"><img src="images/downvote.svg"></button>
+					<img src="images/upvote.svg" class="card-footer__up-btn">
+					<p>Quality: ${qualityArray[idea.qualityCount]}</p>
+					<img src="images/downvote.svg" class="card-footer__down-btn">
 				</article>
 			</div>
 	`
@@ -92,6 +100,54 @@ function addCard(idea) {
 		});
 	}
 }
+
+
+function onLoad() {
+	var array = JSON.parse(localStorage.getItem('array'))
+	var newArray = array.map(item => {
+		item = new Idea(item.id, item.title, item.body, item.qualityCount)
+		return item;
+	})
+	ideaArray = newArray;
+}
+
+function updatePage(newArray) {
+			ideaArray = newArray
+			ideaArray[0].saveToStorage(ideaArray);
+			bottomSection.innerHTML = '';
+			pageRefresh(ideaArray)
+}
+
+function upvote(idea) {
+	var newArray = ideaArray.map(item => {
+		if (item.id == idea) {
+			item.updateQuality('upvote')
+			}
+			return item;
+		})
+	updatePage(newArray)
+}
+
+function downvote(idea) {
+	var newArray = ideaArray.map(item => {
+		if (item.id == idea) {
+			item.updateQuality('downvote')
+			}
+		return item;
+		})
+	updatePage(newArray)
+}
+
+function changeStar(idea) {
+	newArray = ideaArray.map(item => {
+		if (item.id == idea) {
+			item.starToggle();
+		}
+		return item;
+	})
+	updatePage(newArray)
+}
+
 
 
 function findItem(elId) {
