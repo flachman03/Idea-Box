@@ -90,10 +90,8 @@ function addCard(idea) {
 						console.log(elId)
 						findItem(elId)
 		});
-		
 	}
 }
-
 
 
 function findItem(elId) {
