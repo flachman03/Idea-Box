@@ -6,7 +6,7 @@ var newQualityBtn = document.querySelector('#new-quality-btn');
 var titleInput = document.querySelector('#title-input');
 var bodyInput = document.querySelector('#body-input');
 var saveBtn = document.querySelector('#save-btn');
-var ideaArray = JSON.parse(localStorage.getItem('string')) || [];
+var ideaArray = JSON.parse(localStorage.getItem('array')) || [];
 var bottomSection = document.querySelector('.main__bottom-section');
 var cards = document.querySelector('idea-card');
 
@@ -56,9 +56,10 @@ function pageRefresh(ideaArray) {
 
 
 
+
 function addCard(idea) {
 	
-	bottomSection.innerHTML += 
+	bottomSection.innerHTML = 
 	
 	`<div class="idea-card" data-id="${idea.id}">
 				<article class="idea-card__card-header">
@@ -76,6 +77,7 @@ function addCard(idea) {
 				</article>
 			</div>
 	`
+	+ bottomSection.innerHTML ;
 
 	var cardDeleteBtn = document.getElementsByClassName('card-header__delete-btn');
 
@@ -84,10 +86,27 @@ function addCard(idea) {
 			var parentEl = this.parentElement.parentElement;
 			parentEl.style.display = 'none';
 
-			var elId = parentEl.dataset.id;
-
-			
+			 var elId = JSON.parse(parentEl.dataset.id);
+						console.log(elId)
+						findItem(elId)
 		});
+		
 	}
-	
 }
+
+
+
+function findItem(elId) {
+
+	var itemsInLocalStorage = JSON.parse(localStorage.getItem('array'));
+
+	var elIndex = itemsInLocalStorage.findIndex(function(element) {
+		return element.id === elId;
+	  });
+	  
+	  console.log((itemsInLocalStorage))
+	  itemsInLocalStorage.splice(elIndex,1)
+	  localStorage.clear();
+	  localStorage.setItem('array', JSON.stringify(itemsInLocalStorage));
+}
+

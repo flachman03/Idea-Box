@@ -9,7 +9,7 @@ class Idea {
 
 	saveToStorage(ideaArray) {
 	var stringified = JSON.stringify(ideaArray);
-	localStorage.setItem('string', stringified);
+	localStorage.setItem('array', stringified);
 	}
 
 	deleteFromStorge() {
