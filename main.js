@@ -44,9 +44,6 @@ if (ideaArray.length != 0) {
 function saveNewObject() {
 	var newIdea = new Idea(Date.now(), titleInput.value, bodyInput.value);
 	ideaArray.push(newIdea);
-
-
-
 	newIdea.saveToStorage(ideaArray);
 	addCard(newIdea);
 }
@@ -66,7 +63,6 @@ function pageRefresh(ideaArray) {
 
 
 function addCard(idea) {
-	
 	bottomSection.innerHTML = 
 
 	`<div class="idea-card" data-id="${idea.id}">
