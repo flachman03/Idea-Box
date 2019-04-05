@@ -8,7 +8,7 @@ var bodyInput = document.querySelector('#body-input');
 var saveBtn = document.querySelector('#save-btn');
 var bottomSection = document.querySelector('.main__bottom-section');
 var cards = document.querySelector('idea-card');
-var starBtn = document.querySelector('.card-header__star-btn');
+// var starBtn = document.querySelector('.card-header__star-btn');
 var ideaArray = JSON.parse(localStorage.getItem('array'))|| [];
 var qualityArray = ['Swill', 'Plausable', 'Genius']
 
@@ -44,8 +44,6 @@ if (ideaArray.length != 0) {
 function saveNewObject() {
 	var newIdea = new Idea(Date.now(), titleInput.value, bodyInput.value);
 	ideaArray.push(newIdea);
-
-
 
 	newIdea.saveToStorage(ideaArray);
 	addCard(newIdea);
@@ -95,11 +93,29 @@ function addCard(idea) {
 			parentEl.style.display = 'none';
 
 			 var elId = JSON.parse(parentEl.dataset.id);
-						console.log(elId)
-						findItem(elId)
+			 findItem(elId);
 		});
 	}
 }
+
+
+// bottomSection.addEventListener('click', function(e) {
+// 	var elId = e.target.parentNode.parentNode.dataset.id;
+// if (e.target.className.includes('card-header__delete-btn')){
+// 	myFunc(elId)
+// 	// console.log(elId)
+//  };
+// })
+
+// function myFunc(elId) {
+// 	newArray = ideaArray.map(function(item) {
+// 		if (item.id == elId) {
+// 			item.deleteFromStorge(elId);
+// 		}
+// 		return item;
+// 	})
+// 	updatePage(newArray)
+// }
 
 
 function onLoad() {
@@ -158,7 +174,7 @@ function findItem(elId) {
 		return element.id === elId;
 	  });
 	  
-	  console.log((itemsInLocalStorage))
+	//   console.log((itemsInLocalStorage))
 	  itemsInLocalStorage.splice(elIndex,1)
 	  localStorage.clear();
 	  localStorage.setItem('array', JSON.stringify(itemsInLocalStorage));

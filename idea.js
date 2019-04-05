@@ -13,9 +13,17 @@ class Idea {
 	localStorage.setItem('array', stringified);
 	}
 
-	deleteFromStorge() {
-		localStorage.removeItem(this.id)
-	}
+	// deleteFromStorge(elId) {
+	// 	var itemsInLocalStorage = JSON.parse(localStorage.getItem('array'));
+
+	  
+	// //   itemsInLocalStorage.splice(elIndex,1)
+
+	// // var myId = itemsInLocalStorage.findIndex(this)
+
+	// //   console.log(this)
+	//   console.log(itemsInLocalStorage)
+	// }
 
 	starToggle() {
 		this.star = !this.star;
