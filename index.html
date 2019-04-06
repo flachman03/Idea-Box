@@ -26,10 +26,10 @@
 	<main>
 		<section class="main__top-section">
 			<form class="top-section__idea-form">
-				<label for="title-input">Title</label>
-				<input type="text" name="title-input" class="idea-form__title-input global-input" id="title-input">
-				<label for="body-input">body</label>
-				<textarea class="idea-form__body-input global-input " id="body-input"></textarea>
+				<label for="title-input">Title <span class="title-input-char-counter input-car-counter">(32)</span></label>
+				<input type="text" maxlength="32" name="title-input" class="idea-form__title-input global-input" id="title-input">
+				<label for="body-input">Body <span class="body-input-char-counter input-car-counter">(50)</span></label>
+				<textarea class="idea-form__body-input global-input " id="body-input" ></textarea>
 				<input type="button" name="save-btn" value="Save" class="idea-form__save-btn global-input" id="save-btn">	
 			</form>
 			<form class="top-section__search-form">

@@ -13,17 +13,16 @@ class Idea {
 	localStorage.setItem('array', stringified);
 	}
 
-	// deleteFromStorge(elId) {
-	// 	var itemsInLocalStorage = JSON.parse(localStorage.getItem('array'));
-
-	  
-	// //   itemsInLocalStorage.splice(elIndex,1)
-
-	// // var myId = itemsInLocalStorage.findIndex(this)
-
-	// //   console.log(this)
-	//   console.log(itemsInLocalStorage)
-	// }
+	deleteItemInStorage(elId) {
+		var itemsInLocalStorage = JSON.parse(localStorage.getItem('array'));
+		for (var i = 0; i < itemsInLocalStorage.length; i++) {
+			if(itemsInLocalStorage[i].id === elId) {
+				  itemsInLocalStorage.splice(i,1);
+				  localStorage.clear();
+				  localStorage.setItem('array', JSON.stringify(itemsInLocalStorage));
+			}
+		}
+	}
 
 	starToggle() {
 		this.star = !this.star;

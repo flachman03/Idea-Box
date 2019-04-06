@@ -207,3 +207,8 @@ button {
 	outline: none;
 }
 
+.input-car-counter {
+	font-weight: 300;
+	color: rgba(0,0,0,0.7);
+	font-size: 12px;
+}

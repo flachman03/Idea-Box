@@ -10,13 +10,18 @@ var bottomSection = document.querySelector('.main__bottom-section');
 var cards = document.querySelector('idea-card');
 // var starBtn = document.querySelector('.card-header__star-btn');
 var ideaArray = JSON.parse(localStorage.getItem('array'))|| [];
-var qualityArray = ['Swill', 'Plausable', 'Genius']
-
+var qualityArray = ['Swill', 'Plausable', 'Genius'];
+var mainTopSection = document.querySelector('.main__top-section');
 /*----------------Event Listeners---------------*/
 
 saveBtn.addEventListener('click', function(e) {
-	saveNewObject(e);
-	clearInputs();
+
+	if (titleInput.value === "" || bodyInput.value === "") {
+		alert('Please add both title and body!')
+	} else {
+		saveNewObject(e);
+	    clearInputs();
+	}
 })
 
 
@@ -40,6 +45,7 @@ if (ideaArray.length != 0) {
 
 
 /*-----------------functions--------------------*/
+
 
 function saveNewObject() {
 	var newIdea = new Idea(Date.now(), titleInput.value, bodyInput.value);
@@ -73,8 +79,8 @@ function addCard(idea) {
 					<img src="images/delete.svg" class="card-header__delete-btn">
 				</article>
 				<article class="idea-card__card-body">
-					<h3  class="card-body__title">${idea.title}</h3>
-					<p class="card-body__content">${idea.body}</p>
+					<h3  maxlength="16" contenteditable="true" class="card-body__title">${idea.title}</h3>
+					<p contenteditable="true" class="card-body__content">${idea.body}</p>
 				</article>
 				<article class=idea-card__card-footer>
 					<img src="images/upvote.svg" class="card-footer__up-btn">
@@ -85,37 +91,77 @@ function addCard(idea) {
 	`
 	+ bottomSection.innerHTML ;
 
-	var cardDeleteBtn = document.getElementsByClassName('card-header__delete-btn');
+	
+}
 
-	for (var i = 0; i < cardDeleteBtn.length; i++) {
-		cardDeleteBtn[i].addEventListener('click', function() {
-			var parentEl = this.parentElement.parentElement;
-			parentEl.style.display = 'none';
+// deleting items start here..
 
-			 var elId = JSON.parse(parentEl.dataset.id);
-			 findItem(elId);
-		});
+bottomSection.addEventListener('click',  function(e) {
+	
+   if (e.target.className.includes('card-header__delete-btn')){
+	var parentEl = e.target.parentNode.parentNode;
+	var elId = JSON.parse(e.target.parentNode.parentNode.dataset.id);
+	parentEl.style.display = 'none';
+	deleteItemInStorage(elId)
+    } 
+});
+
+function deleteItemInStorage(elId) {
+	var itemsInLocalStorage = JSON.parse(localStorage.getItem('array'));
+	for (var i = 0; i < itemsInLocalStorage.length; i++) {
+		if(itemsInLocalStorage[i].id === elId) {
+			  itemsInLocalStorage.splice(i,1);
+			  localStorage.removeItem('array');
+			  localStorage.setItem('array', JSON.stringify(itemsInLocalStorage));
+		}
 	}
 }
 
+// editning title ..
 
-// bottomSection.addEventListener('click', function(e) {
-// 	var elId = e.target.parentNode.parentNode.dataset.id;
-// if (e.target.className.includes('card-header__delete-btn')){
-// 	myFunc(elId)
-// 	// console.log(elId)
-//  };
-// })
+bottomSection.addEventListener('focusout',  function(e) {
 
-// function myFunc(elId) {
-// 	newArray = ideaArray.map(function(item) {
-// 		if (item.id == elId) {
-// 			item.deleteFromStorge(elId);
-// 		}
-// 		return item;
-// 	})
-// 	updatePage(newArray)
-// }
+	if (e.target.className.includes('card-body__content')){
+		var itemsInLocalStorage = JSON.parse(localStorage.getItem('array'));
+		var parentEl = e.target.parentNode.parentNode;
+		var elId = JSON.parse(parentEl.dataset.id);
+
+	 	for (var i = 0; i < itemsInLocalStorage.length; i++) {
+			if(itemsInLocalStorage[i].id === elId) {
+				var targetedIdea = itemsInLocalStorage[i];
+				targetedIdea.body = e.target.textContent;
+
+				itemsInLocalStorage.splice(i,1, targetedIdea);
+				localStorage.removeItem('array');
+			    localStorage.setItem('array', JSON.stringify(itemsInLocalStorage));
+			}
+		}
+	}
+ });
+
+ // editing body ....
+
+ bottomSection.addEventListener('focusout',  function(e) {
+
+	if (e.target.className.includes('card-body__title')){
+		var itemsInLocalStorage = JSON.parse(localStorage.getItem('array'));
+		var parentEl = e.target.parentNode.parentNode;
+		var elId = JSON.parse(parentEl.dataset.id);
+
+	 	for (var i = 0; i < itemsInLocalStorage.length; i++) {
+			if(itemsInLocalStorage[i].id === elId) {
+				var targetedIdea = itemsInLocalStorage[i];
+				targetedIdea.title = e.target.textContent;
+
+				itemsInLocalStorage.splice(i,1, targetedIdea);
+				localStorage.removeItem('array');
+			    localStorage.setItem('array', JSON.stringify(itemsInLocalStorage));
+			}
+		}
+	}
+ });
+
+
 
 
 function onLoad() {
@@ -164,19 +210,44 @@ function changeStar(idea) {
 	updatePage(newArray)
 }
 
+// charecter counter..
+
+mainTopSection.addEventListener('keyup', function(e) {
+	
+	if (e.target.className.includes('idea-form__title-input')) {
+		var inputType = 'title';
+		var titleInputValue = 32;
+		charCounter(titleInput.value, inputType, titleInputValue);
+	}
+
+});
+
+mainTopSection.addEventListener('keyup', function(e) {
+	
+	if (e.target.className.includes('idea-form__body-input')) {
+		var inputType = 'body';
+		var bodyInputValue = 50;
+		charCounter(titleInput.value, inputType, bodyInputValue);
+	}
+});
 
 
-function findItem(elId) {
+function charCounter(value, inputType, inputCharValue) {
+	var titleInputCharCounter = document.querySelector('.title-input-char-counter');
+	var bodyInputCharCounter = document.querySelector('.body-input-char-counter');
 
-	var itemsInLocalStorage = JSON.parse(localStorage.getItem('array'));
+	var valueLength = value.length;
+	var counterValue;
 
-	var elIndex = itemsInLocalStorage.findIndex(function(element) {
-		return element.id === elId;
-	  });
-	  
-	//   console.log((itemsInLocalStorage))
-	  itemsInLocalStorage.splice(elIndex,1)
-	  localStorage.clear();
-	  localStorage.setItem('array', JSON.stringify(itemsInLocalStorage));
-}
-
+	if ( valueLength < inputCharValue) {
+		counterValue = `(${inputCharValue - valueLength})`;
+	} else {
+		counterValue = `(0)`;
+	}
+console.log(inputCharValue)
+	if(inputType === 'title') {
+		titleInputCharCounter.textContent = counterValue;
+	} else {
+		bodyInputCharCounter.textContent = counterValue;
+	}
+  };
