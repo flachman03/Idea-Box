@@ -9,8 +9,18 @@ var saveBtn = document.querySelector('#save-btn');
 var bottomSection = document.querySelector('.main__bottom-section');
 var cards = document.querySelector('idea-card');
 var starBtn = document.querySelector('.card-header__star-btn');
+var searchInput = document.querySelector('.search-form__search-input');
+var searchBtn = document.querySelector('.search-form__search-btn');
 var ideaArray = JSON.parse(localStorage.getItem('array'))|| [];
+var searchArray = [];
 var qualityArray = ['Swill', 'Plausable', 'Genius']
+
+/*----------------Starting Conditions-------------*/
+if (ideaArray.length != 0) {
+	onLoad();
+	pageRefresh(ideaArray);
+}
+
 
 /*----------------Event Listeners---------------*/
 
@@ -18,7 +28,6 @@ saveBtn.addEventListener('click', function(e) {
 	saveNewObject(e);
 	clearInputs();
 })
-
 
 bottomSection.addEventListener('click', function(e) {
 			var idea = e.target.parentNode.parentNode.dataset.id;
@@ -33,11 +42,10 @@ bottomSection.addEventListener('click', function(e) {
 		}
 })
 
-if (ideaArray.length != 0) {
-	onLoad();
-	pageRefresh(ideaArray);
-}
-
+searchInput.addEventListener('keyup', function(e) {
+	debugger;
+	searchField()
+})
 
 /*-----------------functions--------------------*/
 
@@ -165,3 +173,20 @@ function findItem(elId) {
 	  localStorage.setItem('array', JSON.stringify(itemsInLocalStorage));
 }
 
+function searchField() {
+	debugger;
+	var searchValue = searchInput.value.toUpperCase();
+	var newArray = [];
+	ideaArray.forEach(item => {
+			var string = item.title.split('')
+			var string2 = item.body.split('')
+		if (string.toUpperCase().indexOf(searchValue) > -1) {
+			return string
+		}
+		if (string2.toUpperCase().indexOf(searchValue) > -1) {
+			return item.body
+		}
+	 })
+	 searchArray = newArray
+	 console.log(searchArray)
+}
