@@ -12,6 +12,8 @@ var cards = document.querySelector('idea-card');
 var ideaArray = JSON.parse(localStorage.getItem('array'))|| [];
 var qualityArray = ['Swill', 'Plausable', 'Genius'];
 var mainTopSection = document.querySelector('.main__top-section');
+var titleInputCharCounter = document.querySelector('.title-input-char-counter');
+var bodyInputCharCounter = document.querySelector('.body-input-char-counter');
 /*----------------Event Listeners---------------*/
 
 saveBtn.addEventListener('click', function(e) {
@@ -20,7 +22,8 @@ saveBtn.addEventListener('click', function(e) {
 		alert('Please add both title and body!')
 	} else {
 		saveNewObject(e);
-	    clearInputs();
+		clearInputs();
+		showMeArray();
 	}
 })
 
@@ -58,12 +61,16 @@ function saveNewObject() {
 function clearInputs() {
 	titleInput.value = '';
 	bodyInput.value = '';
+	titleInputCharCounter.textContent = `(32)`;
+	bodyInputCharCounter.textContent = `(130)`;
 }
 
 function pageRefresh(ideaArray) {
 	ideaArray.forEach(function(item) {
 		addCard(item);
 	});
+
+	
 }
 
 
@@ -113,8 +120,11 @@ function deleteItemInStorage(elId) {
 			  itemsInLocalStorage.splice(i,1);
 			  localStorage.removeItem('array');
 			  localStorage.setItem('array', JSON.stringify(itemsInLocalStorage));
+
+			  ideaArray = JSON.parse(localStorage.getItem('array'))
 		}
 	}
+	showMeArray()
 }
 
 // editning title ..
@@ -213,8 +223,7 @@ function changeStar(idea) {
 // charecter counter..
 
 mainTopSection.addEventListener('keyup', function(e) {
-	var titleInputCharCounter = document.querySelector('.title-input-char-counter');
-	var bodyInputCharCounter = document.querySelector('.body-input-char-counter');
+	
 	
 	if (e.target.className.includes('idea-form__title-input')) {
 		var valueLength = titleInput.value.length;
@@ -225,8 +234,15 @@ mainTopSection.addEventListener('keyup', function(e) {
 		var valueLength = bodyInput.value.length;
 		bodyInputCharCounter.textContent = `(${130 - valueLength})`;
 	}
+
+	
 });
 
 
 
+
+
 	
+function showMeArray() {
+	console.log(ideaArray)
+}
