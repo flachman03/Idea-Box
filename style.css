@@ -184,7 +184,7 @@ img {
 }
 
 .card-body__content {
-	height: 120px;
+	height: 110px;
 }
 
 .idea-card__card-body {
@@ -211,4 +211,8 @@ button {
 	font-weight: 300;
 	color: rgba(0,0,0,0.7);
 	font-size: 12px;
+}
+
+.card-body__title {
+	margin-bottom: 10px;
 }

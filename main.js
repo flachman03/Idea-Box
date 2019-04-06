@@ -213,41 +213,20 @@ function changeStar(idea) {
 // charecter counter..
 
 mainTopSection.addEventListener('keyup', function(e) {
-	
-	if (e.target.className.includes('idea-form__title-input')) {
-		var inputType = 'title';
-		var titleInputValue = 32;
-		charCounter(titleInput.value, inputType, titleInputValue);
-	}
-
-});
-
-mainTopSection.addEventListener('keyup', function(e) {
-	
-	if (e.target.className.includes('idea-form__body-input')) {
-		var inputType = 'body';
-		var bodyInputValue = 50;
-		charCounter(titleInput.value, inputType, bodyInputValue);
-	}
-});
-
-
-function charCounter(value, inputType, inputCharValue) {
 	var titleInputCharCounter = document.querySelector('.title-input-char-counter');
 	var bodyInputCharCounter = document.querySelector('.body-input-char-counter');
-
-	var valueLength = value.length;
-	var counterValue;
-
-	if ( valueLength < inputCharValue) {
-		counterValue = `(${inputCharValue - valueLength})`;
-	} else {
-		counterValue = `(0)`;
+	
+	if (e.target.className.includes('idea-form__title-input')) {
+		var valueLength = titleInput.value.length;
+		titleInputCharCounter.textContent = `(${32 - valueLength})`;
 	}
-console.log(inputCharValue)
-	if(inputType === 'title') {
-		titleInputCharCounter.textContent = counterValue;
-	} else {
-		bodyInputCharCounter.textContent = counterValue;
+
+	if (e.target.className.includes('idea-form__body-input')) {
+		var valueLength = bodyInput.value.length;
+		bodyInputCharCounter.textContent = `(${130 - valueLength})`;
 	}
-  };
+});
+
+
+
+	
