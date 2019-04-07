@@ -8,15 +8,23 @@ var bodyInput = document.querySelector('#body-input');
 var saveBtn = document.querySelector('#save-btn');
 var bottomSection = document.querySelector('.main__bottom-section');
 var cards = document.querySelector('idea-card');
-var starBtn = document.querySelector('.card-header__star-btn');
+// var starBtn = document.querySelector('.card-header__star-btn');
 var ideaArray = JSON.parse(localStorage.getItem('array'))|| [];
-var qualityArray = ['Swill', 'Plausable', 'Genius']
-
+var qualityArray = ['Swill', 'Plausable', 'Genius'];
+var mainTopSection = document.querySelector('.main__top-section');
+var titleInputCharCounter = document.querySelector('.title-input-char-counter');
+var bodyInputCharCounter = document.querySelector('.body-input-char-counter');
 /*----------------Event Listeners---------------*/
 
 saveBtn.addEventListener('click', function(e) {
-	saveNewObject(e);
-	clearInputs();
+
+	if (titleInput.value === "" || bodyInput.value === "") {
+		alert('Please add both title and body!')
+	} else {
+		saveNewObject(e);
+		clearInputs();
+		showMeArray();
+	}
 })
 
 
@@ -41,11 +49,10 @@ if (ideaArray.length != 0) {
 
 /*-----------------functions--------------------*/
 
+
 function saveNewObject() {
 	var newIdea = new Idea(Date.now(), titleInput.value, bodyInput.value);
 	ideaArray.push(newIdea);
-
-
 
 	newIdea.saveToStorage(ideaArray);
 	addCard(newIdea);
@@ -54,12 +61,16 @@ function saveNewObject() {
 function clearInputs() {
 	titleInput.value = '';
 	bodyInput.value = '';
+	titleInputCharCounter.textContent = `(32)`;
+	bodyInputCharCounter.textContent = `(130)`;
 }
 
 function pageRefresh(ideaArray) {
 	ideaArray.forEach(function(item) {
 		addCard(item);
 	});
+
+	
 }
 
 
@@ -75,8 +86,8 @@ function addCard(idea) {
 					<img src="images/delete.svg" class="card-header__delete-btn">
 				</article>
 				<article class="idea-card__card-body">
-					<h3  class="card-body__title">${idea.title}</h3>
-					<p class="card-body__content">${idea.body}</p>
+					<h3  maxlength="16" contenteditable="true" class="card-body__title">${idea.title}</h3>
+					<p contenteditable="true" class="card-body__content">${idea.body}</p>
 				</article>
 				<article class=idea-card__card-footer>
 					<img src="images/upvote.svg" class="card-footer__up-btn">
@@ -87,19 +98,80 @@ function addCard(idea) {
 	`
 	+ bottomSection.innerHTML ;
 
-	var cardDeleteBtn = document.getElementsByClassName('card-header__delete-btn');
-
-	for (var i = 0; i < cardDeleteBtn.length; i++) {
-		cardDeleteBtn[i].addEventListener('click', function() {
-			var parentEl = this.parentElement.parentElement;
-			parentEl.style.display = 'none';
-
-			 var elId = JSON.parse(parentEl.dataset.id);
-						console.log(elId)
-						findItem(elId)
-		});
-	}
+	
 }
+
+// deleting items start here..
+
+bottomSection.addEventListener('click',  function(e) {
+	
+   if (e.target.className.includes('card-header__delete-btn')){
+	var parentEl = e.target.parentNode.parentNode;
+	var elId = JSON.parse(e.target.parentNode.parentNode.dataset.id);
+	parentEl.style.display = 'none';
+	deleteItemInStorage(elId)
+    } 
+});
+
+function deleteItemInStorage(elId) {
+	var itemsInLocalStorage = JSON.parse(localStorage.getItem('array'));
+	for (var i = 0; i < itemsInLocalStorage.length; i++) {
+		if(itemsInLocalStorage[i].id === elId) {
+			  itemsInLocalStorage.splice(i,1);
+			  localStorage.removeItem('array');
+			  localStorage.setItem('array', JSON.stringify(itemsInLocalStorage));
+
+			  ideaArray = JSON.parse(localStorage.getItem('array'))
+		}
+	}
+	showMeArray()
+}
+
+// editning title ..
+
+bottomSection.addEventListener('focusout',  function(e) {
+
+	if (e.target.className.includes('card-body__content')){
+		var itemsInLocalStorage = JSON.parse(localStorage.getItem('array'));
+		var parentEl = e.target.parentNode.parentNode;
+		var elId = JSON.parse(parentEl.dataset.id);
+
+	 	for (var i = 0; i < itemsInLocalStorage.length; i++) {
+			if(itemsInLocalStorage[i].id === elId) {
+				var targetedIdea = itemsInLocalStorage[i];
+				targetedIdea.body = e.target.textContent;
+
+				itemsInLocalStorage.splice(i,1, targetedIdea);
+				localStorage.removeItem('array');
+			    localStorage.setItem('array', JSON.stringify(itemsInLocalStorage));
+			}
+		}
+	}
+ });
+
+ // editing body ....
+
+ bottomSection.addEventListener('focusout',  function(e) {
+
+	if (e.target.className.includes('card-body__title')){
+		var itemsInLocalStorage = JSON.parse(localStorage.getItem('array'));
+		var parentEl = e.target.parentNode.parentNode;
+		var elId = JSON.parse(parentEl.dataset.id);
+
+	 	for (var i = 0; i < itemsInLocalStorage.length; i++) {
+			if(itemsInLocalStorage[i].id === elId) {
+				var targetedIdea = itemsInLocalStorage[i];
+				targetedIdea.title = e.target.textContent;
+
+				itemsInLocalStorage.splice(i,1, targetedIdea);
+				localStorage.removeItem('array');
+			    localStorage.setItem('array', JSON.stringify(itemsInLocalStorage));
+			}
+		}
+	}
+ });
+
+
 
 
 function onLoad() {
@@ -148,19 +220,29 @@ function changeStar(idea) {
 	updatePage(newArray)
 }
 
+// charecter counter..
+
+mainTopSection.addEventListener('keyup', function(e) {
+	
+	
+	if (e.target.className.includes('idea-form__title-input')) {
+		var valueLength = titleInput.value.length;
+		titleInputCharCounter.textContent = `(${32 - valueLength})`;
+	}
+
+	if (e.target.className.includes('idea-form__body-input')) {
+		var valueLength = bodyInput.value.length;
+		bodyInputCharCounter.textContent = `(${130 - valueLength})`;
+	}
+
+	
+});
 
 
-function findItem(elId) {
 
-	var itemsInLocalStorage = JSON.parse(localStorage.getItem('array'));
 
-	var elIndex = itemsInLocalStorage.findIndex(function(element) {
-		return element.id === elId;
-	  });
-	  
-	  console.log((itemsInLocalStorage))
-	  itemsInLocalStorage.splice(elIndex,1)
-	  localStorage.clear();
-	  localStorage.setItem('array', JSON.stringify(itemsInLocalStorage));
+
+	
+function showMeArray() {
+	console.log(ideaArray)
 }
-

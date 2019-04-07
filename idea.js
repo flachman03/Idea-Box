@@ -13,8 +13,15 @@ class Idea {
 	localStorage.setItem('array', stringified);
 	}
 
-	deleteFromStorge() {
-		localStorage.removeItem(this.id)
+	deleteItemInStorage(elId) {
+		var itemsInLocalStorage = JSON.parse(localStorage.getItem('array'));
+		for (var i = 0; i < itemsInLocalStorage.length; i++) {
+			if(itemsInLocalStorage[i].id === elId) {
+				  itemsInLocalStorage.splice(i,1);
+				  localStorage.clear();
+				  localStorage.setItem('array', JSON.stringify(itemsInLocalStorage));
+			}
+		}
 	}
 
 	starToggle() {
