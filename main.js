@@ -178,13 +178,13 @@ function searchField() {
 	var searchValue = searchInput.value.toUpperCase();
 	var newArray = [];
 	ideaArray.forEach(item => {
-			var string = item.title.split('')
-			var string2 = item.body.split('')
-		if (string.toUpperCase().indexOf(searchValue) > -1) {
-			return string
+			var string = (item.title.toUpperCase());
+			var string2 = (item.body.toUpperCase());
+		if (string.indexOf(searchValue) > -1) {
+			newArray.push(item.title)
 		}
-		if (string2.toUpperCase().indexOf(searchValue) > -1) {
-			return item.body
+		if (string2.indexOf(searchValue) > -1) {
+			newArray.push(item.body)
 		}
 	 })
 	 searchArray = newArray
