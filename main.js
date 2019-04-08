@@ -12,6 +12,9 @@ var starBtn = document.querySelector('.card-header__star-btn');
 var searchInput = document.querySelector('.search-form__search-input');
 var searchBtn = document.querySelector('.search-form__search-btn');
 var displayList = document.querySelector('.search-form__display-list')
+var mainTopSection = document.querySelector('.main__top-section');
+var titleInputCharCounter = document.querySelector('.idea-form__title-input');
+var bodyInputCharCounter = document.querySelector('.idea-form__body-input');
 var ideaArray = JSON.parse(localStorage.getItem('array'))|| [];
 var searchArray = [];
 var qualityArray = ['Swill', 'Plausable', 'Genius']
@@ -31,7 +34,6 @@ saveBtn.addEventListener('click', function(e) {
 	} else {
 		saveNewObject(e);
 		clearInputs();
-		showMeArray();
 	}
 })
 
