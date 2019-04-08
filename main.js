@@ -41,6 +41,9 @@ bottomSection.addEventListener('click', function(e) {
 		if (e.target.className.includes('card-footer__down-btn')) {
 			downvote(idea)
 		}
+		if (e.target.className.includes('card-header__delete-btn')) {
+			deleteBtn(idea)
+		}
 })
 
 searchInput.addEventListener('keyup', function(e) {
@@ -90,35 +93,23 @@ function addCard(idea) {
 			</div>
 	`
 	+ bottomSection.innerHTML ;
-
-	var cardDeleteBtn = document.getElementsByClassName('card-header__delete-btn');
-
-	for (var i = 0; i < cardDeleteBtn.length; i++) {
-		cardDeleteBtn[i].addEventListener('click', function() {
-			var parentEl = this.parentElement.parentElement;
-			parentEl.style.display = 'none';
-
-			 var elId = JSON.parse(parentEl.dataset.id);
-						console.log(elId)
-						findItem(elId)
-		});
-		
-	}
 }
 
 
 function onLoad() {
 	var array = JSON.parse(localStorage.getItem('array'))
 	var newArray = array.map(item => {
-		item = new Idea(item.id, item.title, item.body, item.qualityCount)
+		item = new Idea(item.id, item.title, item.body, item.starImg ,item.qualityCount)
 		return item;
 	})
 	ideaArray = newArray;
 }
 
 function updatePage(newArray) {
-			ideaArray = newArray
-			ideaArray[0].saveToStorage(ideaArray);
+			ideaArray = newArray;
+			if (ideaArray.length > 0) {
+				ideaArray[0].saveToStorage(ideaArray);
+			}
 			bottomSection.innerHTML = '';
 			pageRefresh(ideaArray)
 }
@@ -153,25 +144,17 @@ function changeStar(idea) {
 	updatePage(newArray)
 }
 
-
-
-
-
-
-
-function findItem(elId) {
-
-	var itemsInLocalStorage = JSON.parse(localStorage.getItem('array'));
-
-	var elIndex = itemsInLocalStorage.findIndex(function(element) {
-		return element.id === elId;
-	  });
-	  
-	  console.log((itemsInLocalStorage))
-	  itemsInLocalStorage.splice(elIndex,1)
-	  localStorage.clear();
-	  localStorage.setItem('array', JSON.stringify(itemsInLocalStorage));
+function deleteBtn(idea) {
+	var updatedArray = [];
+	newArray = ideaArray.map(item => {
+		if (item.id != idea) {
+			updatedArray.push(item)
+		} 
+		localStorage.removeItem('array')
+	})
+	updatePage(updatedArray)
 }
+
 
 function searchField() {
 	var searchValue = searchInput.value.toUpperCase();
