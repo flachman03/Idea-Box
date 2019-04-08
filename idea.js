@@ -12,18 +12,7 @@ class Idea {
 	var stringified = JSON.stringify(ideaArray);
 	localStorage.setItem('array', stringified);
 	}
-
-	deleteItemInStorage(elId) {
-		var itemsInLocalStorage = JSON.parse(localStorage.getItem('array'));
-		for (var i = 0; i < itemsInLocalStorage.length; i++) {
-			if(itemsInLocalStorage[i].id === elId) {
-				  itemsInLocalStorage.splice(i,1);
-				  localStorage.clear();
-				  localStorage.setItem('array', JSON.stringify(itemsInLocalStorage));
-			}
-		}
-	}
-
+  
 	starToggle() {
 		this.star = !this.star;
 		if (this.star == true) {
@@ -35,9 +24,9 @@ class Idea {
 
 	updateQuality(quality) {
 		if (quality == 'upvote') {
-			this.qualityCount++
+			this.qualityCount = Math.min(this.qualityCount + 1, 2)
 		} else {
-			this.qualityCount--
+			this.qualityCount = Math.max(this.qualityCount - 1, 0)
 		}
 	}
 }
