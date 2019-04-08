@@ -11,6 +11,7 @@ var cards = document.querySelector('idea-card');
 var starBtn = document.querySelector('.card-header__star-btn');
 var searchInput = document.querySelector('.search-form__search-input');
 var searchBtn = document.querySelector('.search-form__search-btn');
+var displayList = document.querySelector('.search-form__display-list')
 var ideaArray = JSON.parse(localStorage.getItem('array'))|| [];
 var searchArray = [];
 var qualityArray = ['Swill', 'Plausable', 'Genius']
@@ -43,7 +44,6 @@ bottomSection.addEventListener('click', function(e) {
 })
 
 searchInput.addEventListener('keyup', function(e) {
-	debugger;
 	searchField()
 })
 
@@ -174,7 +174,6 @@ function findItem(elId) {
 }
 
 function searchField() {
-	debugger;
 	var searchValue = searchInput.value.toUpperCase();
 	var newArray = [];
 	ideaArray.forEach(item => {
@@ -187,6 +186,12 @@ function searchField() {
 			newArray.push(item.body)
 		}
 	 })
-	 searchArray = newArray
+	 pushArray(newArray);
 	 console.log(searchArray)
+}
+
+function pushArray(array) {
+	array.forEach(item => {
+		displayList.innerHTML += `<li>${item}</li>`
+	})
 }
