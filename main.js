@@ -255,4 +255,7 @@ function pushArray(array) {
 		var valueLength = bodyInput.value.length;
 		bodyInputCharCounter.textContent = `(${130 - valueLength})`;
 	}	
-s};
+};
+
+
+
