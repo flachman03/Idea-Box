@@ -13,8 +13,8 @@ var searchInput = document.querySelector('.search-form__search-input');
 var searchBtn = document.querySelector('.search-form__search-btn');
 var displayList = document.querySelector('.search-form__display-list')
 var mainTopSection = document.querySelector('.main__top-section');
-var titleInputCharCounter = document.querySelector('.idea-form__title-input');
-var bodyInputCharCounter = document.querySelector('.idea-form__body-input');
+var titleInputCharCounter = document.querySelector('.title-input-char-counter');
+var bodyInputCharCounter = document.querySelector('.body-input-char-counter');
 var ideaArray = JSON.parse(localStorage.getItem('array'))|| [];
 var searchArray = [];
 var qualityArray = ['Swill', 'Plausable', 'Genius']
@@ -81,8 +81,6 @@ function pageRefresh(ideaArray) {
 
 	
 }
-
-
 
 
 function addCard(idea) {
@@ -152,8 +150,6 @@ bottomSection.addEventListener('focusout',  function(e) {
  });
 
 
-
-
 function onLoad() {
 	var array = JSON.parse(localStorage.getItem('array'))
 	var newArray = array.map(item => {
@@ -214,17 +210,21 @@ function deleteBtn(idea) {
 	})
 	updatePage(updatedArray)
 }
-//   mainTopSection.addEventListener('keyup', function(e) {
 
-// 	if (e.target.className.includes('idea-form__title-input')) {
-// 		var valueLength = titleInput.value.length;
-// 		titleInputCharCounter.textContent = `(${32 - valueLength})`;
-// 	}
-//   if (e.target.className.includes('idea-form__body-input')) {
-// 		var valueLength = bodyInput.value.length;
-// 		bodyInputCharCounter.textContent = `(${130 - valueLength})`;
-// 	}	
-//  });
+
+
+
+mainTopSection.addEventListener('keyup', function(e) {
+	
+	if (e.target.className.includes('idea-form__title-input')) {
+		var valueLength = titleInput.value.length;
+		titleInputCharCounter.textContent = `(${32 - valueLength})`;
+	}
+  if (e.target.className.includes('idea-form__body-input')) {
+		var valueLength = bodyInput.value.length;
+		bodyInputCharCounter.textContent = `(${130 - valueLength})`;
+	}
+});
 
 
 function searchField() {
@@ -254,5 +254,5 @@ function pushArray(array) {
 	if (e.target.className.includes('idea-form__body-input')) {
 		var valueLength = bodyInput.value.length;
 		bodyInputCharCounter.textContent = `(${130 - valueLength})`;
-	}
-};
+	}	
+s};
