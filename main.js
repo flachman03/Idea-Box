@@ -186,12 +186,12 @@ function searchField() {
 			newArray.push(item.body)
 		}
 	 })
+	 displayList.innerHTML = "";
 	 pushArray(newArray);
-	 console.log(searchArray)
 }
 
 function pushArray(array) {
-	array.forEach(item => {
-		displayList.innerHTML += `<li>${item}</li>`
+		array.forEach(item => {
+			displayList.innerHTML += `<li class="display-list__list-item">${item}</li>`
 	})
 }
