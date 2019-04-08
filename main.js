@@ -22,12 +22,17 @@ if (ideaArray.length != 0) {
 	pageRefresh(ideaArray);
 }
 
-
 /*----------------Event Listeners---------------*/
 
 saveBtn.addEventListener('click', function(e) {
-	saveNewObject(e);
-	clearInputs();
+
+	if (titleInput.value === "" || bodyInput.value === "") {
+		alert('Please add both title and body!')
+	} else {
+		saveNewObject(e);
+		clearInputs();
+		showMeArray();
+	}
 })
 
 bottomSection.addEventListener('click', function(e) {
@@ -52,6 +57,7 @@ searchInput.addEventListener('keyup', function(e) {
 
 /*-----------------functions--------------------*/
 
+
 function saveNewObject() {
 	var newIdea = new Idea(Date.now(), titleInput.value, bodyInput.value);
 	ideaArray.push(newIdea);
@@ -62,12 +68,16 @@ function saveNewObject() {
 function clearInputs() {
 	titleInput.value = '';
 	bodyInput.value = '';
+	titleInputCharCounter.textContent = `(32)`;
+	bodyInputCharCounter.textContent = `(130)`;
 }
 
 function pageRefresh(ideaArray) {
 	ideaArray.forEach(function(item) {
 		addCard(item);
 	});
+
+	
 }
 
 
@@ -82,8 +92,8 @@ function addCard(idea) {
 					<img src="images/delete.svg" class="card-header__delete-btn">
 				</article>
 				<article class="idea-card__card-body">
-					<h3  class="card-body__title">${idea.title}</h3>
-					<p class="card-body__content">${idea.body}</p>
+					<h3  maxlength="16" contenteditable="true" class="card-body__title">${idea.title}</h3>
+					<p contenteditable="true" class="card-body__content">${idea.body}</p>
 				</article>
 				<article class=idea-card__card-footer>
 					<img src="images/upvote.svg" class="card-footer__up-btn">
@@ -94,6 +104,52 @@ function addCard(idea) {
 	`
 	+ bottomSection.innerHTML ;
 }
+
+// editning title ..
+
+bottomSection.addEventListener('focusout',  function(e) {
+
+	if (e.target.className.includes('card-body__content')){
+		var itemsInLocalStorage = JSON.parse(localStorage.getItem('array'));
+		var parentEl = e.target.parentNode.parentNode;
+		var elId = JSON.parse(parentEl.dataset.id);
+
+	 	for (var i = 0; i < itemsInLocalStorage.length; i++) {
+			if(itemsInLocalStorage[i].id === elId) {
+				var targetedIdea = itemsInLocalStorage[i];
+				targetedIdea.body = e.target.textContent;
+
+				itemsInLocalStorage.splice(i,1, targetedIdea);
+				localStorage.removeItem('array');
+			    localStorage.setItem('array', JSON.stringify(itemsInLocalStorage));
+			}
+		}
+	}
+ });
+
+ // editing body ....
+
+ bottomSection.addEventListener('focusout',  function(e) {
+
+	if (e.target.className.includes('card-body__title')){
+		var itemsInLocalStorage = JSON.parse(localStorage.getItem('array'));
+		var parentEl = e.target.parentNode.parentNode;
+		var elId = JSON.parse(parentEl.dataset.id);
+
+	 	for (var i = 0; i < itemsInLocalStorage.length; i++) {
+			if(itemsInLocalStorage[i].id === elId) {
+				var targetedIdea = itemsInLocalStorage[i];
+				targetedIdea.title = e.target.textContent;
+
+				itemsInLocalStorage.splice(i,1, targetedIdea);
+				localStorage.removeItem('array');
+			    localStorage.setItem('array', JSON.stringify(itemsInLocalStorage));
+			}
+		}
+	}
+ });
+
+
 
 
 function onLoad() {
@@ -144,6 +200,8 @@ function changeStar(idea) {
 	updatePage(newArray)
 }
 
+
+
 function deleteBtn(idea) {
 	var updatedArray = [];
 	newArray = ideaArray.map(item => {
@@ -154,6 +212,16 @@ function deleteBtn(idea) {
 	})
 	updatePage(updatedArray)
 }
+mainTopSection.addEventListener('keyup', function(e) {
+	
+	if (e.target.className.includes('idea-form__title-input')) {
+		var valueLength = titleInput.value.length;
+		titleInputCharCounter.textContent = `(${32 - valueLength})`;
+  if (e.target.className.includes('idea-form__body-input')) {
+		var valueLength = bodyInput.value.length;
+		bodyInputCharCounter.textContent = `(${130 - valueLength})`;
+	}	
+});
 
 
 function searchField() {
@@ -180,4 +248,8 @@ function pushArray(array) {
 		array.forEach(item => {
 			displayList.innerHTML += `<li class="display-list__list-item">${item}</li>`
 	})
-}
+	if (e.target.className.includes('idea-form__body-input')) {
+		var valueLength = bodyInput.value.length;
+		bodyInputCharCounter.textContent = `(${130 - valueLength})`;
+	}	
+});

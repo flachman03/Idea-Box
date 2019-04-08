@@ -12,7 +12,7 @@ class Idea {
 	var stringified = JSON.stringify(ideaArray);
 	localStorage.setItem('array', stringified);
 	}
-
+  
 	starToggle() {
 		this.star = !this.star;
 		if (this.star == true) {

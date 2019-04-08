@@ -63,7 +63,7 @@ h1,h2,h3, label {
 	border: 1px solid pink;
 	display: flex;
 	flex-wrap: wrap;
-	overflow: hidden;
+	overflow: scroll;
 	justify-content: flex-start;
 }
 
@@ -197,7 +197,7 @@ img {
 }
 
 .card-body__content {
-	height: 120px;
+	height: 110px;
 }
 
 .idea-card__card-body {
@@ -220,3 +220,12 @@ button {
 	outline: none;
 }
 
+.input-car-counter {
+	font-weight: 300;
+	color: rgba(0,0,0,0.7);
+	font-size: 12px;
+}
+
+.card-body__title {
+	margin-bottom: 10px;
+}
