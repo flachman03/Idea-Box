@@ -28,9 +28,9 @@ class Idea {
 
 	updateQuality(quality) {
 		if (quality == 'upvote') {
-			this.qualityCount++
+			this.qualityCount = Math.min(this.qualityCount++, 3)
 		} else {
-			this.qualityCount--
+			this.qualityCount = Math.max(this.qualityCount--, 0)
 		}
 	}
 }

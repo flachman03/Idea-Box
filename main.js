@@ -188,6 +188,9 @@ function searchField() {
 	 })
 	 displayList.innerHTML = "";
 	 pushArray(newArray);
+	 if (searchInput.value == '') {
+		 displayList.innerHTML = ''
+	 }
 }
 
 function pushArray(array) {
