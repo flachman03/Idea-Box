@@ -13,8 +13,8 @@ var searchInput = document.querySelector('.search-form__search-input');
 var searchBtn = document.querySelector('.search-form__search-btn');
 var displayList = document.querySelector('.search-form__display-list')
 var mainTopSection = document.querySelector('.main__top-section');
-var titleInputCharCounter = document.querySelector('.idea-form__title-input');
-var bodyInputCharCounter = document.querySelector('.idea-form__body-input');
+var titleInputCharCounter = document.querySelector('.title-input-char-counter');
+var bodyInputCharCounter = document.querySelector('.body-input-char-counter');
 var ideaArray = JSON.parse(localStorage.getItem('array'))|| [];
 var searchArray = [];
 var qualityArray = ['Swill', 'Plausable', 'Genius']
@@ -210,6 +210,10 @@ function deleteBtn(idea) {
 	})
 	updatePage(updatedArray)
 }
+
+
+
+
 mainTopSection.addEventListener('keyup', function(e) {
 	
 	if (e.target.className.includes('idea-form__title-input')) {
