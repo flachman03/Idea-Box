@@ -12,6 +12,9 @@ var starBtn = document.querySelector('.card-header__star-btn');
 var searchInput = document.querySelector('.search-form__search-input');
 var searchBtn = document.querySelector('.search-form__search-btn');
 var displayList = document.querySelector('.search-form__display-list')
+var mainTopSection = document.querySelector('.main__top-section');
+var titleInputCharCounter = document.querySelector('.idea-form__title-input');
+var bodyInputCharCounter = document.querySelector('.idea-form__body-input');
 var ideaArray = JSON.parse(localStorage.getItem('array'))|| [];
 var searchArray = [];
 var qualityArray = ['Swill', 'Plausable', 'Genius']
@@ -31,7 +34,6 @@ saveBtn.addEventListener('click', function(e) {
 	} else {
 		saveNewObject(e);
 		clearInputs();
-		showMeArray();
 	}
 })
 
@@ -212,16 +214,17 @@ function deleteBtn(idea) {
 	})
 	updatePage(updatedArray)
 }
-mainTopSection.addEventListener('keyup', function(e) {
-	
-	if (e.target.className.includes('idea-form__title-input')) {
-		var valueLength = titleInput.value.length;
-		titleInputCharCounter.textContent = `(${32 - valueLength})`;
-  if (e.target.className.includes('idea-form__body-input')) {
-		var valueLength = bodyInput.value.length;
-		bodyInputCharCounter.textContent = `(${130 - valueLength})`;
-	}	
-});
+//   mainTopSection.addEventListener('keyup', function(e) {
+
+// 	if (e.target.className.includes('idea-form__title-input')) {
+// 		var valueLength = titleInput.value.length;
+// 		titleInputCharCounter.textContent = `(${32 - valueLength})`;
+// 	}
+//   if (e.target.className.includes('idea-form__body-input')) {
+// 		var valueLength = bodyInput.value.length;
+// 		bodyInputCharCounter.textContent = `(${130 - valueLength})`;
+// 	}	
+//  });
 
 
 function searchField() {
@@ -251,5 +254,5 @@ function pushArray(array) {
 	if (e.target.className.includes('idea-form__body-input')) {
 		var valueLength = bodyInput.value.length;
 		bodyInputCharCounter.textContent = `(${130 - valueLength})`;
-	}	
-});
+	}
+};
