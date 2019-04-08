@@ -95,6 +95,19 @@ h1,h2,h3, label {
 	flex: 9;
 }
 
+.search-form__display-list {
+	list-style-type: none;
+	width: 80%;
+	display: block;
+	background-color: #fff;
+	z-index: 1;
+}
+
+.display-list__list-item {
+	border: 1px solid #353567;
+}
+
+
 /*----------Sidebar----------*/
 
 .sidebar {

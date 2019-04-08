@@ -8,12 +8,20 @@ var bodyInput = document.querySelector('#body-input');
 var saveBtn = document.querySelector('#save-btn');
 var bottomSection = document.querySelector('.main__bottom-section');
 var cards = document.querySelector('idea-card');
-// var starBtn = document.querySelector('.card-header__star-btn');
+var starBtn = document.querySelector('.card-header__star-btn');
+var searchInput = document.querySelector('.search-form__search-input');
+var searchBtn = document.querySelector('.search-form__search-btn');
+var displayList = document.querySelector('.search-form__display-list')
 var ideaArray = JSON.parse(localStorage.getItem('array'))|| [];
-var qualityArray = ['Swill', 'Plausable', 'Genius'];
-var mainTopSection = document.querySelector('.main__top-section');
-var titleInputCharCounter = document.querySelector('.title-input-char-counter');
-var bodyInputCharCounter = document.querySelector('.body-input-char-counter');
+var searchArray = [];
+var qualityArray = ['Swill', 'Plausable', 'Genius']
+
+/*----------------Starting Conditions-------------*/
+if (ideaArray.length != 0) {
+	onLoad();
+	pageRefresh(ideaArray);
+}
+
 /*----------------Event Listeners---------------*/
 
 saveBtn.addEventListener('click', function(e) {
@@ -27,7 +35,6 @@ saveBtn.addEventListener('click', function(e) {
 	}
 })
 
-
 bottomSection.addEventListener('click', function(e) {
 			var idea = e.target.parentNode.parentNode.dataset.id;
 		if (e.target.className.includes('card-header__star-btn')){
@@ -39,13 +46,14 @@ bottomSection.addEventListener('click', function(e) {
 		if (e.target.className.includes('card-footer__down-btn')) {
 			downvote(idea)
 		}
+		if (e.target.className.includes('card-header__delete-btn')) {
+			deleteBtn(idea)
+		}
 })
 
-if (ideaArray.length != 0) {
-	onLoad();
-	pageRefresh(ideaArray);
-}
-
+searchInput.addEventListener('keyup', function(e) {
+	searchField()
+})
 
 /*-----------------functions--------------------*/
 
@@ -53,7 +61,6 @@ if (ideaArray.length != 0) {
 function saveNewObject() {
 	var newIdea = new Idea(Date.now(), titleInput.value, bodyInput.value);
 	ideaArray.push(newIdea);
-
 	newIdea.saveToStorage(ideaArray);
 	addCard(newIdea);
 }
@@ -77,7 +84,6 @@ function pageRefresh(ideaArray) {
 
 
 function addCard(idea) {
-	
 	bottomSection.innerHTML = 
 
 	`<div class="idea-card" data-id="${idea.id}">
@@ -97,34 +103,6 @@ function addCard(idea) {
 			</div>
 	`
 	+ bottomSection.innerHTML ;
-
-	
-}
-
-// deleting items start here..
-
-bottomSection.addEventListener('click',  function(e) {
-	
-   if (e.target.className.includes('card-header__delete-btn')){
-	var parentEl = e.target.parentNode.parentNode;
-	var elId = JSON.parse(e.target.parentNode.parentNode.dataset.id);
-	parentEl.style.display = 'none';
-	deleteItemInStorage(elId)
-    } 
-});
-
-function deleteItemInStorage(elId) {
-	var itemsInLocalStorage = JSON.parse(localStorage.getItem('array'));
-	for (var i = 0; i < itemsInLocalStorage.length; i++) {
-		if(itemsInLocalStorage[i].id === elId) {
-			  itemsInLocalStorage.splice(i,1);
-			  localStorage.removeItem('array');
-			  localStorage.setItem('array', JSON.stringify(itemsInLocalStorage));
-
-			  ideaArray = JSON.parse(localStorage.getItem('array'))
-		}
-	}
-	showMeArray()
 }
 
 // editning title ..
@@ -177,15 +155,17 @@ bottomSection.addEventListener('focusout',  function(e) {
 function onLoad() {
 	var array = JSON.parse(localStorage.getItem('array'))
 	var newArray = array.map(item => {
-		item = new Idea(item.id, item.title, item.body, item.qualityCount)
+		item = new Idea(item.id, item.title, item.body, item.starImg ,item.qualityCount)
 		return item;
 	})
 	ideaArray = newArray;
 }
 
 function updatePage(newArray) {
-			ideaArray = newArray
-			ideaArray[0].saveToStorage(ideaArray);
+			ideaArray = newArray;
+			if (ideaArray.length > 0) {
+				ideaArray[0].saveToStorage(ideaArray);
+			}
 			bottomSection.innerHTML = '';
 			pageRefresh(ideaArray)
 }
@@ -220,29 +200,56 @@ function changeStar(idea) {
 	updatePage(newArray)
 }
 
-// charecter counter..
 
+
+function deleteBtn(idea) {
+	var updatedArray = [];
+	newArray = ideaArray.map(item => {
+		if (item.id != idea) {
+			updatedArray.push(item)
+		} 
+		localStorage.removeItem('array')
+	})
+	updatePage(updatedArray)
+}
 mainTopSection.addEventListener('keyup', function(e) {
-	
 	
 	if (e.target.className.includes('idea-form__title-input')) {
 		var valueLength = titleInput.value.length;
 		titleInputCharCounter.textContent = `(${32 - valueLength})`;
-	}
-
-	if (e.target.className.includes('idea-form__body-input')) {
+  if (e.target.className.includes('idea-form__body-input')) {
 		var valueLength = bodyInput.value.length;
 		bodyInputCharCounter.textContent = `(${130 - valueLength})`;
-	}
-
-	
+	}	
 });
 
 
-
-
-
-	
-function showMeArray() {
-	console.log(ideaArray)
+function searchField() {
+	var searchValue = searchInput.value.toUpperCase();
+	var newArray = [];
+	ideaArray.forEach(item => {
+			var string = (item.title.toUpperCase());
+			var string2 = (item.body.toUpperCase());
+		if (string.indexOf(searchValue) > -1) {
+			newArray.push(item.title)
+		}
+		if (string2.indexOf(searchValue) > -1) {
+			newArray.push(item.body)
+		}
+	 })
+	 displayList.innerHTML = "";
+	 pushArray(newArray);
+	 if (searchInput.value == '') {
+		 displayList.innerHTML = ''
+	 }
 }
+
+function pushArray(array) {
+		array.forEach(item => {
+			displayList.innerHTML += `<li class="display-list__list-item">${item}</li>`
+	})
+	if (e.target.className.includes('idea-form__body-input')) {
+		var valueLength = bodyInput.value.length;
+		bodyInputCharCounter.textContent = `(${130 - valueLength})`;
+	}	
+});

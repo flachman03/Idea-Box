@@ -12,8 +12,7 @@ class Idea {
 	var stringified = JSON.stringify(ideaArray);
 	localStorage.setItem('array', stringified);
 	}
-
-
+  
 	starToggle() {
 		this.star = !this.star;
 		if (this.star == true) {
@@ -25,9 +24,9 @@ class Idea {
 
 	updateQuality(quality) {
 		if (quality == 'upvote') {
-			this.qualityCount++
+			this.qualityCount = Math.min(this.qualityCount + 1, 2)
 		} else {
-			this.qualityCount--
+			this.qualityCount = Math.max(this.qualityCount - 1, 0)
 		}
 	}
 }
