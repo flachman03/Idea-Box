@@ -74,8 +74,6 @@ function pageRefresh(ideaArray) {
 }
 
 
-
-
 function addCard(idea) {
 	
 	bottomSection.innerHTML = 
@@ -172,8 +170,6 @@ bottomSection.addEventListener('focusout',  function(e) {
  });
 
 
-
-
 function onLoad() {
 	var array = JSON.parse(localStorage.getItem('array'))
 	var newArray = array.map(item => {
@@ -234,8 +230,6 @@ mainTopSection.addEventListener('keyup', function(e) {
 		var valueLength = bodyInput.value.length;
 		bodyInputCharCounter.textContent = `(${130 - valueLength})`;
 	}
-
-	
 });
 
 
