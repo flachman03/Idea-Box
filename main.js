@@ -20,6 +20,11 @@ var ideaArray = JSON.parse(localStorage.getItem('array'))|| [];
 var searchArray = [];
 var qualityArray = ['Swill', 'Plausable', 'Genius']
 var sideBar = document.querySelector('.sidebar');
+var burgerButton = document.querySelector('.burger_button');
+var sidebarSideContainerTwo = document.querySelector('.sidebar__side-container-2');
+var lineOne = document.querySelector('.line_one');
+var lineTwo = document.querySelector('.line_two');
+var lineThree = document.querySelector('.line_three');
 
 /*----------------Starting Conditions-------------*/
 if (ideaArray.length != 0) {
@@ -241,5 +246,14 @@ function editBody(parent, e) {
 
 
 
+// burger button
 
-
+burgerButton.addEventListener('click', function() {
+	 sidebarSideContainerTwo.classList.toggle('hide-menu');
+	 if (sidebarSideContainerTwo.getAttribute("class").includes('hide-menu') === true) {
+		 burgerButton.src = "images/menu-close.svg";
+	 } else {
+		 burgerButton.src = "images/menu.svg";
+	 }
+  })
+  
