@@ -235,6 +235,11 @@ button {
 	margin-bottom: 10px;
 }
 
+.burger_button,
+.burger_button2 {
+	display: none;
+}
+
 @media screen and (max-width: 707px) {
 	body {
 		display: flex;
@@ -249,33 +254,35 @@ button {
 		text-align: center;
 	}
 
+	.sidebar__side-container-1 {
+		display: flex;
+		justify-content: space-between;
+		height: 40px;
+		align-items: center; 
+	}
+
 	.sidebar__side-container-2 {
 		display: none;
+		transition: 0.3s;
+	}
+
+	.sidebar__side-title {
+		padding: 0px;
 	}
 
 	.burger_button {
-		width: 27px;
-		height: 25px;
-		cursor: pointer;
-		transition: 0.3s;
-		float: right;
-		margin-top: 1em;
-		margin-right: 1em;
-		position: relative;
-		background-color: none;
-	  }
-	  
-	  
-	  .lines {
-		width: 100%;
-		background: #000000;
-		height: 5px;
-		transition: 0.3s;
-		border-radius: 5px;
-	  }
-	  
-	  .line_two,
-	  .line_three  {
-		  margin-top: 5px;
-	  }
+		display: block;
+		color: white;
+		width: 40px;
+	}
+
+	.burger_button2 {
+		width: 40px;
+		display: block;
+	}
+
+	.hide-menu {
+		display: block;
+	}
+
 }

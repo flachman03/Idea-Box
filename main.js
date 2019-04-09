@@ -274,27 +274,11 @@ sideBar.addEventListener('click', function(e) {
 // burger button
 
 burgerButton.addEventListener('click', function() {
-	var burgerValue  = 'close';
-console.log(burgerValue)
-	if (burgerValue == 'close') {
-		burgerValue = 'open';
-
-		setTimeout(function() {
-		sidebarSideContainerTwo.style.display = 'block';
-		lineOne.style.transform = 'rotate(-45deg)';
-		lineOne.style.transform += 'translate(-7px, 6.5px)';
-		lineTwo.style.transform = 'rotate(45deg)';
-		lineThree.style.opacity = '0';
-		}, 100);
-
-	} else {
-		burgerValue = 'close';
-		// burgerIcon.style.display = 'block';
-		sidebarSideContainerTwo.style.display = 'none';
-		lineThree.style.opacity = null;
-		lineTwo.style.transform = null;
-		lineOne.style.transform = null;
-	}
-	
-});
-
+	 sidebarSideContainerTwo.classList.toggle('hide-menu');
+	 if (sidebarSideContainerTwo.getAttribute("class").includes('hide-menu') === true) {
+		 burgerButton.src = "images/menu-close.svg";
+	 } else {
+		 burgerButton.src = "images/menu.svg";
+	 }
+  })
+  
