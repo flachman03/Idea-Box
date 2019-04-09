@@ -13,11 +13,12 @@ var searchInput = document.querySelector('.search-form__search-input');
 var searchBtn = document.querySelector('.search-form__search-btn');
 var displayList = document.querySelector('.search-form__display-list')
 var mainTopSection = document.querySelector('.main__top-section');
-var titleInputCharCounter = document.querySelector('.idea-form__title-input');
-var bodyInputCharCounter = document.querySelector('.idea-form__body-input');
+var titleInputCharCounter = document.querySelector('.title-input-char-counter');
+var bodyInputCharCounter = document.querySelector('.body-input-char-counter');
 var ideaArray = JSON.parse(localStorage.getItem('array'))|| [];
 var searchArray = [];
 var qualityArray = ['Swill', 'Plausable', 'Genius']
+var sideBar = document.querySelector('.sidebar');
 
 /*----------------Starting Conditions-------------*/
 if (ideaArray.length != 0) {
@@ -83,11 +84,8 @@ function pageRefresh(ideaArray) {
 }
 
 
-
-
 function addCard(idea) {
 	bottomSection.innerHTML = 
-
 	`<div class="idea-card" data-id="${idea.id}">
 				<article class="idea-card__card-header">
 					<img src=${idea.starImg} class="card-header__star-btn">
@@ -105,6 +103,7 @@ function addCard(idea) {
 			</div>
 	`
 	+ bottomSection.innerHTML ;
+
 }
 
 // editning title ..
@@ -154,7 +153,7 @@ bottomSection.addEventListener('focusout',  function(e) {
 function onLoad() {
 	var array = JSON.parse(localStorage.getItem('array'))
 	var newArray = array.map(item => {
-		item = new Idea(item.id, item.title, item.body, item.starImg ,item.qualityCount)
+		item = new Idea(item.id, item.title, item.body, item.star,  item.starImg , item.qualityCount)
 		return item;
 	})
 	ideaArray = newArray;
@@ -212,6 +211,19 @@ function deleteBtn(idea) {
 	updatePage(updatedArray)
 }
 
+mainTopSection.addEventListener('keyup', function(e) {
+	
+	if (e.target.className.includes('idea-form__title-input')) {
+		var valueLength = titleInput.value.length;
+		titleInputCharCounter.textContent = `(${32 - valueLength})`;
+	}
+  if (e.target.className.includes('idea-form__body-input')) {
+		var valueLength = bodyInput.value.length;
+		bodyInputCharCounter.textContent = `(${130 - valueLength})`;
+	}
+});
+
+
 function searchField() {
 	var searchValue = searchInput.value.toUpperCase();
 	var newArray = [];
@@ -242,3 +254,19 @@ function pushArray(array) {
 				displayList.innerHTML += `<li class="display-list__list-item">${item}</li>`
 	})
 };
+
+// show starred cards..
+
+sideBar.addEventListener('click', function(e) {
+	if (e.target.className.includes('sidebar-starred-ideas-btn')) {
+		bottomSection.innerHTML = '';
+	ideaArray.map(item => {
+		if (item.star == true) {
+			addCard(item)
+		} 
+	})
+	}	
+})
+
+
+
