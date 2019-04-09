@@ -41,45 +41,29 @@ saveBtn.addEventListener('click', function(e) {
 
 bottomSection.addEventListener('click', function(e) {
 			var idea = e.target.parentNode.parentNode.dataset.id;
-		if (e.target.className.includes('card-header__star-btn')){
-			changeStar(idea)
-		 };
-		if (e.target.className.includes('card-footer__up-btn')) {
-			changeVote(idea, 'upvote')
-		};
-		if (e.target.className.includes('card-footer__down-btn')) {
-			changeVote(idea, 'downvote')
-		}
-		if (e.target.className.includes('card-header__delete-btn')) {
-			deleteBtn(idea)
-		}
+			e.target.className.includes('card-header__star-btn') ? changeStar(idea): null;
+			e.target.className.includes('card-footer__up-btn') ? changeVote(idea, 'upvote'): null;
+			e.target.className.includes('card-footer__down-btn') ? changeVote(idea, 'downvote'): null;
+			e.target.className.includes('card-header__delete-btn') ? deleteBtn(idea): null;
 })
 
-searchInput.addEventListener('keyup', function(e) {
+searchInput.addEventListener('keyup', function() {
 	searchField()
 })
 
 sideBar.addEventListener('click', function(e) {
 	if (e.target.className.includes('sidebar-starred-ideas-btn')) {
 		bottomSection.innerHTML = '';
-	ideaArray.map(item => {
-		if (item.star == true) {
-			addCard(item)
-		} 
-	})
+		ideaArray.map(item => {
+			(item.star == true) ? addCard(item): null;
+		})
 	}	
 })
 
 qualityList.addEventListener('click', function(e) {
-	if (e.target.className.includes('quality-list__swill')) {
-		filterQuality(0)
-	};
-	if (e.target.className.includes('quality-list__plausable')) {
-		filterQuality(1)
-	};
-	if (e.target.className.includes('quality-list__genius')) {
-		filterQuality(2)
-	};
+	e.target.className.includes('quality-list__swill') ? filterQuality(0): null;
+	e.target.className.includes('quality-list__plausable') ? filterQuality(1): null;
+	e.target.className.includes('quality-list__genius') ? filterQuality(2): null;
 });
 
 mainTopSection.addEventListener('keyup', function(e) {
@@ -95,12 +79,8 @@ mainTopSection.addEventListener('keyup', function(e) {
 
 bottomSection.addEventListener('focusout',  function(e) {
 	var idea = e.target.parentNode.parentNode.dataset.id;
-	if(e.target.className.includes('card-body__title')) {
-		editTitle(idea, e);
-	}
-	if(e.target.className.includes('card-body__content')) {
-		editBody(idea, e)
-	}
+	e.target.className.includes('card-body__title') ? editTitle(idea, e): null;
+	e.target.className.includes('card-body__content') ? editBody(idea, e): null;
 })
 
 /*-----------------functions--------------------*/
@@ -168,9 +148,7 @@ function updatePage(newArray) {
 
 function changeStar(idea) {
 	var newArray = ideaArray.map(item => {
-		if (item.id == idea) {
-			item.starToggle();
-		}
+		(item.id == idea) ? item.starToggle(): null;
 		return item;
 	})
 	updatePage(newArray)
