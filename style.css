@@ -234,3 +234,48 @@ button {
 .card-body__title {
 	margin-bottom: 10px;
 }
+
+@media screen and (max-width: 707px) {
+	body {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.sidebar {
+		height: auto;
+	}
+
+	.sidebar__side-title {
+		text-align: center;
+	}
+
+	.sidebar__side-container-2 {
+		display: none;
+	}
+
+	.burger_button {
+		width: 27px;
+		height: 25px;
+		cursor: pointer;
+		transition: 0.3s;
+		float: right;
+		margin-top: 1em;
+		margin-right: 1em;
+		position: relative;
+		background-color: none;
+	  }
+	  
+	  
+	  .lines {
+		width: 100%;
+		background: #000000;
+		height: 5px;
+		transition: 0.3s;
+		border-radius: 5px;
+	  }
+	  
+	  .line_two,
+	  .line_three  {
+		  margin-top: 5px;
+	  }
+}

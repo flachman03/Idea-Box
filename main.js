@@ -19,6 +19,11 @@ var ideaArray = JSON.parse(localStorage.getItem('array'))|| [];
 var searchArray = [];
 var qualityArray = ['Swill', 'Plausable', 'Genius']
 var sideBar = document.querySelector('.sidebar');
+var burgerButton = document.querySelector('.burger_button');
+var sidebarSideContainerTwo = document.querySelector('.sidebar__side-container-2');
+var lineOne = document.querySelector('.line_one');
+var lineTwo = document.querySelector('.line_two');
+var lineThree = document.querySelector('.line_three');
 
 /*----------------Starting Conditions-------------*/
 if (ideaArray.length != 0) {
@@ -79,8 +84,6 @@ function pageRefresh(ideaArray) {
 	ideaArray.forEach(function(item) {
 		addCard(item);
 	});
-
-	
 }
 
 
@@ -268,5 +271,30 @@ sideBar.addEventListener('click', function(e) {
 	}	
 })
 
+// burger button
 
+burgerButton.addEventListener('click', function() {
+	var burgerValue  = 'close';
+console.log(burgerValue)
+	if (burgerValue == 'close') {
+		burgerValue = 'open';
+
+		setTimeout(function() {
+		sidebarSideContainerTwo.style.display = 'block';
+		lineOne.style.transform = 'rotate(-45deg)';
+		lineOne.style.transform += 'translate(-7px, 6.5px)';
+		lineTwo.style.transform = 'rotate(45deg)';
+		lineThree.style.opacity = '0';
+		}, 100);
+
+	} else {
+		burgerValue = 'close';
+		// burgerIcon.style.display = 'block';
+		sidebarSideContainerTwo.style.display = 'none';
+		lineThree.style.opacity = null;
+		lineTwo.style.transform = null;
+		lineOne.style.transform = null;
+	}
+	
+});
 
