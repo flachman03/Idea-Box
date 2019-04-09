@@ -151,9 +151,6 @@ bottomSection.addEventListener('focusout',  function(e) {
 	}
  });
 
-
-
-
 function onLoad() {
 	var array = JSON.parse(localStorage.getItem('array'))
 	var newArray = array.map(item => {
@@ -214,18 +211,6 @@ function deleteBtn(idea) {
 	})
 	updatePage(updatedArray)
 }
-//   mainTopSection.addEventListener('keyup', function(e) {
-
-// 	if (e.target.className.includes('idea-form__title-input')) {
-// 		var valueLength = titleInput.value.length;
-// 		titleInputCharCounter.textContent = `(${32 - valueLength})`;
-// 	}
-//   if (e.target.className.includes('idea-form__body-input')) {
-// 		var valueLength = bodyInput.value.length;
-// 		bodyInputCharCounter.textContent = `(${130 - valueLength})`;
-// 	}	
-//  });
-
 
 function searchField() {
 	var searchValue = searchInput.value.toUpperCase();
@@ -241,18 +226,19 @@ function searchField() {
 		}
 	 })
 	 displayList.innerHTML = "";
-	 pushArray(newArray);
-	 if (searchInput.value == '') {
-		 displayList.innerHTML = ''
+	 if (searchValue == '') {
+		 newArray = [];
 	 }
+	 pushArray(newArray);
 }
 
 function pushArray(array) {
-		array.forEach(item => {
-			displayList.innerHTML += `<li class="display-list__list-item">${item}</li>`
+		if (array != 0) {
+			displayList.classList.add("block")
+		} else { 
+			displayList.classList.add("hide")
+		}
+			array.forEach(item => {
+				displayList.innerHTML += `<li class="display-list__list-item">${item}</li>`
 	})
-	if (e.target.className.includes('idea-form__body-input')) {
-		var valueLength = bodyInput.value.length;
-		bodyInputCharCounter.textContent = `(${130 - valueLength})`;
-	}
 };
