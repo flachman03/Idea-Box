@@ -15,6 +15,7 @@ var displayList = document.querySelector('.search-form__display-list')
 var mainTopSection = document.querySelector('.main__top-section');
 var titleInputCharCounter = document.querySelector('.title-input-char-counter');
 var bodyInputCharCounter = document.querySelector('.body-input-char-counter');
+var qualityList = document.querySelector('.sidebar__quality-list')
 var ideaArray = JSON.parse(localStorage.getItem('array'))|| [];
 var searchArray = [];
 var qualityArray = ['Swill', 'Plausable', 'Genius']
@@ -69,8 +70,19 @@ sideBar.addEventListener('click', function(e) {
 	}	
 })
 
+qualityList.addEventListener('click', function(e) {
+	if (e.target.className.includes('quality-list__swill')) {
+		filterQuality(0)
+	};
+	if (e.target.className.includes('quality-list__plausable')) {
+		filterQuality(1)
+	};
+	if (e.target.className.includes('quality-list__genius')) {
+		filterQuality(2)
+	};
+});
+
 mainTopSection.addEventListener('keyup', function(e) {
-	
 	if (e.target.className.includes('idea-form__title-input')) {
 		var valueLength = titleInput.value.length;
 		titleInputCharCounter.textContent = `(${32 - valueLength})`;
@@ -80,6 +92,16 @@ mainTopSection.addEventListener('keyup', function(e) {
 		bodyInputCharCounter.textContent = `(${130 - valueLength})`;
 	}
 });
+
+bottomSection.addEventListener('focusout',  function(e) {
+	var idea = e.target.parentNode.parentNode.dataset.id;
+	if(e.target.className.includes('card-body__title')) {
+		editTitle(idea, e);
+	}
+	if(e.target.className.includes('card-body__content')) {
+		editBody(idea, e)
+	}
+})
 
 /*-----------------functions--------------------*/
 
@@ -102,10 +124,7 @@ function pageRefresh(ideaArray) {
 	ideaArray.forEach(function(item) {
 		addCard(item);
 	});
-
-	
 }
-
 
 function addCard(idea) {
 	bottomSection.innerHTML = 
@@ -129,50 +148,6 @@ function addCard(idea) {
 
 }
 
-// editning title ..
-
-bottomSection.addEventListener('focusout',  function(e) {
-
-	if (e.target.className.includes('card-body__content')){
-		var itemsInLocalStorage = JSON.parse(localStorage.getItem('array'));
-		var parentEl = e.target.parentNode.parentNode;
-		var elId = JSON.parse(parentEl.dataset.id);
-
-	 	for (var i = 0; i < itemsInLocalStorage.length; i++) {
-			if(itemsInLocalStorage[i].id === elId) {
-				var targetedIdea = itemsInLocalStorage[i];
-				targetedIdea.body = e.target.textContent;
-
-				itemsInLocalStorage.splice(i,1, targetedIdea);
-				localStorage.removeItem('array');
-			    localStorage.setItem('array', JSON.stringify(itemsInLocalStorage));
-			}
-		}
-	}
- });
-
- // editing body ....
-
- bottomSection.addEventListener('focusout',  function(e) {
-
-	if (e.target.className.includes('card-body__title')){
-		var itemsInLocalStorage = JSON.parse(localStorage.getItem('array'));
-		var parentEl = e.target.parentNode.parentNode;
-		var elId = JSON.parse(parentEl.dataset.id);
-
-	 	for (var i = 0; i < itemsInLocalStorage.length; i++) {
-			if(itemsInLocalStorage[i].id === elId) {
-				var targetedIdea = itemsInLocalStorage[i];
-				targetedIdea.title = e.target.textContent;
-
-				itemsInLocalStorage.splice(i,1, targetedIdea);
-				localStorage.removeItem('array');
-			    localStorage.setItem('array', JSON.stringify(itemsInLocalStorage));
-			}
-		}
-	}
- });
- 
 function onLoad() {
 	var array = JSON.parse(localStorage.getItem('array'))
 	var newArray = array.map(item => {
@@ -192,7 +167,7 @@ function updatePage(newArray) {
 }
 
 function changeStar(idea) {
-	newArray = ideaArray.map(item => {
+	var newArray = ideaArray.map(item => {
 		if (item.id == idea) {
 			item.starToggle();
 		}
@@ -252,6 +227,40 @@ function pushArray(array) {
 				displayList.innerHTML += `<li class="display-list__list-item">${item}</li>`
 	})
 };
+
+function filterQuality(num) {
+	var qualityArray = [];
+	ideaArray.map(item => {
+		if (item.qualityCount == num) {
+			qualityArray.push(item)
+		}
+	})
+	bottomSection.innerHTML = '';
+	pageRefresh(qualityArray)
+}
+
+function editTitle(parent, e) {
+	var newArray = [];
+			ideaArray.map(item => {
+		if (item.id == parent) {
+			item.title = e.target.textContent
+			newArray.push(item);
+		}
+	})
+	updatePage(newArray)
+}
+
+function editBody(parent, e) {
+	var newArray = [];
+			ideaArray.map(item => {
+		if (item.id == parent) {
+			item.body = e.target.textContent
+			newArray.push(item);
+		}
+	})
+	updatePage(newArray)
+}
+
 
 
 
