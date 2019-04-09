@@ -1,9 +1,9 @@
 class Idea {
-	constructor(id, title, body,starImg, qualityCount) {
+	constructor(id, title, body, star, starImg, qualityCount) {
 		this.id = id;
 		this.title =  title;
 		this.body = body;
-		this.star = false; 
+		this.star = star || false; 
 		this.starImg = starImg || "images/star.svg"
 		this.qualityCount = qualityCount || 0;
 	}
