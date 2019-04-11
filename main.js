@@ -17,6 +17,8 @@ var titleInputCharCounter = document.querySelector('.title-input-char-counter');
 var bodyInputCharCounter = document.querySelector('.body-input-char-counter');
 var qualityList = document.querySelector('.sidebar__quality-list')
 var sideBar = document.querySelector('.sidebar');
+var burgerButton = document.querySelector('.burger_button');
+var sidebarSideContainerTwo = document.querySelector('.sidebar__side-container-2');
 
 /*----------------Global Variables----------------*/
 

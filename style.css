@@ -48,7 +48,6 @@ form {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
-	border: 1px solid pink;
 	width: 40%;
 	min-width: 320px;
 }
@@ -285,5 +284,4 @@ button {
 	.hide-menu {
 		display: block;
 	}
-
 }
