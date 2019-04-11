@@ -236,5 +236,14 @@ function addCard(idea) {
 
 
 
+// burger button
 
-
+burgerButton.addEventListener('click', function() {
+	 sidebarSideContainerTwo.classList.toggle('hide-menu');
+	 if (sidebarSideContainerTwo.getAttribute("class").includes('hide-menu') === true) {
+		 burgerButton.src = "images/menu-close.svg";
+	 } else {
+		 burgerButton.src = "images/menu.svg";
+	 }
+  })
+  

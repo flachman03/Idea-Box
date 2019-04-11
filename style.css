@@ -235,3 +235,55 @@ button {
 .card-body__title {
 	margin-bottom: 10px;
 }
+
+.burger_button,
+.burger_button2 {
+	display: none;
+}
+
+@media screen and (max-width: 707px) {
+	body {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.sidebar {
+		height: auto;
+	}
+
+	.sidebar__side-title {
+		text-align: center;
+	}
+
+	.sidebar__side-container-1 {
+		display: flex;
+		justify-content: space-between;
+		height: 40px;
+		align-items: center; 
+	}
+
+	.sidebar__side-container-2 {
+		display: none;
+		transition: 0.3s;
+	}
+
+	.sidebar__side-title {
+		padding: 0px;
+	}
+
+	.burger_button {
+		display: block;
+		color: white;
+		width: 40px;
+	}
+
+	.burger_button2 {
+		width: 40px;
+		display: block;
+	}
+
+	.hide-menu {
+		display: block;
+	}
+
+}
