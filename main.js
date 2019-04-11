@@ -16,17 +16,15 @@ var mainTopSection = document.querySelector('.main__top-section');
 var titleInputCharCounter = document.querySelector('.title-input-char-counter');
 var bodyInputCharCounter = document.querySelector('.body-input-char-counter');
 var qualityList = document.querySelector('.sidebar__quality-list')
-var ideaArray = JSON.parse(localStorage.getItem('array'))|| [];
-var searchArray = [];
-var qualityArray = ['Swill', 'Plausable', 'Genius']
 var sideBar = document.querySelector('.sidebar');
-var burgerButton = document.querySelector('.burger_button');
-var sidebarSideContainerTwo = document.querySelector('.sidebar__side-container-2');
-var lineOne = document.querySelector('.line_one');
-var lineTwo = document.querySelector('.line_two');
-var lineThree = document.querySelector('.line_three');
+
+/*----------------Global Variables----------------*/
+
+var ideaArray = JSON.parse(localStorage.getItem('array'))|| [];
+var qualityArray = ['Swill', 'Plausable', 'Genius']
 
 /*----------------Starting Conditions-------------*/
+
 if (ideaArray.length != 0) {
 	onLoad();
 	pageRefresh(ideaArray);
@@ -84,8 +82,12 @@ mainTopSection.addEventListener('keyup', function(e) {
 
 bottomSection.addEventListener('focusout',  function(e) {
 	var idea = e.target.parentNode.parentNode.dataset.id;
-	e.target.className.includes('card-body__title') ? editTitle(idea, e): null;
-	e.target.className.includes('card-body__content') ? editBody(idea, e): null;
+	e.target.className.includes('card-body__title') ? editCard(idea, e, 'title'): null;
+	e.target.className.includes('card-body__content') ? editCard(idea, e, 'body'): null;
+})
+
+searchBtn.addEventListener('click', function() {
+
 })
 
 /*-----------------functions--------------------*/
@@ -109,28 +111,6 @@ function pageRefresh(ideaArray) {
 	ideaArray.forEach(function(item) {
 		addCard(item);
 	});
-}
-
-function addCard(idea) {
-	bottomSection.innerHTML = 
-	`<div class="idea-card" data-id="${idea.id}">
-				<article class="idea-card__card-header">
-					<img src=${idea.starImg} class="card-header__star-btn">
-					<img src="images/delete.svg" class="card-header__delete-btn">
-				</article>
-				<article class="idea-card__card-body">
-					<h3  maxlength="16" contenteditable="true" class="card-body__title">${idea.title}</h3>
-					<p contenteditable="true" class="card-body__content">${idea.body}</p>
-				</article>
-				<article class=idea-card__card-footer>
-					<img src="images/upvote.svg" class="card-footer__up-btn">
-					<p>Quality: ${qualityArray[idea.qualityCount]}</p>
-					<img src="images/downvote.svg" class="card-footer__down-btn">
-				</article>
-			</div>
-	`
-	+ bottomSection.innerHTML ;
-
 }
 
 function onLoad() {
@@ -222,26 +202,36 @@ function filterQuality(num) {
 	pageRefresh(qualityArray)
 }
 
-function editTitle(parent, e) {
+function editCard(parent, e, vote) {
 	var newArray = [];
 			ideaArray.map(item => {
 		if (item.id == parent) {
-			item.title = e.target.textContent
-			newArray.push(item);
+			item[vote] = e.target.textContent
 		}
+		newArray.push(item);
 	})
 	updatePage(newArray)
 }
 
-function editBody(parent, e) {
-	var newArray = [];
-			ideaArray.map(item => {
-		if (item.id == parent) {
-			item.body = e.target.textContent
-			newArray.push(item);
-		}
-	})
-	updatePage(newArray)
+function addCard(idea) {
+	bottomSection.innerHTML = 
+	`<div class="idea-card" data-id="${idea.id}">
+				<article class="idea-card__card-header">
+					<img src=${idea.starImg} class="card-header__star-btn">
+					<img src="images/delete.svg" class="card-header__delete-btn">
+				</article>
+				<article class="idea-card__card-body">
+					<h3  maxlength="16" contenteditable="true" class="card-body__title">${idea.title}</h3>
+					<p contenteditable="true" class="card-body__content">${idea.body}</p>
+				</article>
+				<article class=idea-card__card-footer>
+					<img src="images/upvote.svg" class="card-footer__up-btn">
+					<p>Quality: ${qualityArray[idea.qualityCount]}</p>
+					<img src="images/downvote.svg" class="card-footer__down-btn">
+				</article>
+			</div>
+	`
+	+ bottomSection.innerHTML ;
 }
 
 
